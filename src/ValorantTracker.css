@@ -2,4 +2,80 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
+	display: grid;
+	grid-template-rows: 65px auto;
 }
+
+
+.main-view-container{
+	background-color: rgb(245, 245, 245);
+}
+
+.main-view-wrapper{
+	position: relative;
+	width: 90%;
+	left: 50%;
+	transform: translateX(-50%);
+
+	display: grid;
+	grid-template-columns: 30% 70%;
+	
+	padding: 10px;
+}
+
+
+.profile-summary-container{
+	
+
+	margin-right: 0px;
+	border: 1px solid gray;
+	height: 600px;
+	padding: 10px;
+	box-sizing: border-box;
+
+}
+
+.account-name-rank-container{
+	background-color: white;
+	box-shadow: 0px 5px 6px 1px rgba(0, 0, 0, 0.137);
+	height: 200px;
+	border-radius: 3px;
+	padding: 10px;
+
+}
+
+.match-history-container{
+
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.match-history-container-header{
+	margin-bottom: 10px;
+}
+
+.match-history-wrapper{
+
+	background-color: white;
+	box-shadow: 0px 5px 6px 1px rgba(0, 0, 0, 0.137);
+
+}
+
+
+.match-history-summary{
+	position: relative;
+	height: 100px;
+	border-bottom: 1px solid gray;
+}
+
+
+.match-history-card-list-container{
+	margin-top: 20px;
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+}
+
+
+
