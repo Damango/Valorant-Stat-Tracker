@@ -60,7 +60,6 @@
 	box-sizing: border-box;
 	box-shadow: 0px 0px 0px 0px gray;
 	transition: 0.3s;
-	justify-content: space-between;
 }
 
 .match-card-wrapper:hover {
@@ -79,10 +78,15 @@
 
 .match-card-champion-icon {
 	position: relative;
+	background: url("../../media/chambericon.png");
+	background-position: center center center;
+	background-size: cover;
+	width: 60px;
+	height: 60px;
+}
 
-	background-color: black;
-	width: 40px;
-	height: 40px;
+.basic-match-info-container {
+	width: 180px;
 }
 
 .match-card-map-time-container {
@@ -90,6 +94,7 @@
 
 .match-card-map {
 	display: inline-block;
+	margin-right: 15px;
 }
 
 .match-card-time {
@@ -100,6 +105,7 @@
 }
 .match-card-type {
 	display: inline-block;
+	margin-right: 15px;
 }
 
 .match-card-length {
@@ -112,6 +118,19 @@
 	height: 85px;
 	background-size: cover;
 	background-position: center;
+}
+
+.match-player-stats-container {
+	position: relative;
+	width: 40%;
+
+	display: flex;
+	margin-left: 50px;
+	justify-content: space-between;
+}
+
+.match-player-kda {
+	text-align: right;
 }
 
 .match-card-drop-down-container {
@@ -128,5 +147,5 @@
 }
 
 .recharts-surface {
-	width: 100% !important;
+	width: 98% !important;
 }

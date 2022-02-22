@@ -31,12 +31,137 @@
 	box-sizing: border-box;
 }
 
-.account-name-rank-container {
+.profile-rank-and-details-container {
 	background-color: white;
 	box-shadow: 0px 5px 6px 1px rgba(0, 0, 0, 0.137);
-	height: 200px;
+}
+
+.profile-icon-name-container {
+	position: relative;
+	background-color: white;
+	border-bottom: 1px solid rgba(128, 128, 128, 0.418);
+	height: 250px;
 	border-radius: 3px;
 	padding: 10px;
+}
+
+.profile-icon-container {
+	position: relative;
+	margin-top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 150px;
+	height: 150px;
+	background: url("./media/phoenixplayercard.png");
+	background-size: cover;
+	background-position: top center;
+}
+.profile-level-container {
+	position: relative;
+	top: 90%;
+	left: 50%;
+	transform: translateX(-50%);
+	display: inline-block;
+	background-color: white;
+	padding: 5px 15px;
+	border-radius: 3px;
+	box-shadow: 0px 0px 3px 1px gray;
+}
+
+.profile-name-container {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 20px;
+	font-family: "Inter";
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.account-ranks-container {
+	padding-bottom: 10px;
+}
+
+.account-current-rank-container {
+	position: relative;
+
+	display: flex;
+	align-items: center;
+}
+
+.current-rank-image-container {
+	width: 150px;
+}
+
+.current-rank-image {
+	position: relative;
+	width: 150px;
+	height: 120px;
+	background: url("./media/immortalicon.png");
+	background-position: center center;
+	background-size: cover;
+	display: inline-block;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.current-rank-text-container {
+	position: relative;
+	display: inline-block;
+	font-family: "Inter";
+	font-size: 25px;
+}
+
+.current-rank-text {
+	font-size: 15px !important;
+}
+.current-rank-name-text {
+	font-weight: bold;
+}
+
+.account-peak-rank-container {
+	position: relative;
+
+	display: flex;
+	align-items: center;
+}
+
+.peak-rank-text-container {
+	position: relative;
+	display: inline-block;
+	font-family: "Inter";
+	font-size: 25px;
+}
+
+.peak-rank-image-container {
+	width: 150px;
+}
+
+.peak-rank-image {
+	position: relative;
+	width: 80px;
+	height: 80px;
+	background: url("./media/raidanticon.png");
+	background-position: center center;
+	background-size: cover;
+	display: inline-block;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.peak-rank-text-container {
+	position: relative;
+	display: inline-block;
+	font-family: "Inter";
+	font-size: 22px;
+}
+
+.peak-rank-text {
+	font-size: 15px;
+}
+
+.peak-rank-name-text {
+	font-weight: bold;
 }
 
 .match-history-container {
@@ -55,8 +180,62 @@
 
 .match-history-summary {
 	position: relative;
-	height: 100px;
+	height: 150px;
 	border-bottom: 1px solid gray;
+	display: flex;
+	align-items: center;
+
+	justify-content: space-around;
+}
+
+.match-history-summary-rank {
+	position: relative;
+
+	display: flex;
+	align-items: center;
+}
+
+.match-history-summary-rank-image {
+	position: relative;
+	height: 100px;
+	width: 100px;
+	background-image: url("./media/immortalicon.png");
+	background-size: cover;
+
+	display: inline-block;
+}
+.match-history-summary-rank-text-container {
+	position: relative;
+	display: inline-block;
+}
+
+.match-history-summary-win-loss-container {
+	position: relative;
+
+	width: 60%;
+}
+
+.win-loss-ratio-text-container {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 5px;
+}
+
+.win-loss-ratio-count {
+}
+
+.win-loss-ratio-bar {
+	position: relative;
+	width: 100%;
+	height: 20px;
+	background-color: red;
+}
+
+.win-loss-ratio-inner-bar {
+	position: relative;
+	width: 60%;
+	height: 100%;
+	background-color: #2ecc71;
 }
 
 .match-history-card-list-container {

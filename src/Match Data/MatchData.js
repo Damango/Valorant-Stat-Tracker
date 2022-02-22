@@ -66,7 +66,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 800,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,
@@ -92,7 +92,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 1900,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,
@@ -118,7 +118,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 4800,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,
@@ -144,7 +144,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 2000,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,
@@ -170,7 +170,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 2600,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,
@@ -196,7 +196,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 7600,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,
@@ -222,7 +222,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 9000,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,
@@ -248,7 +248,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 5600,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,
@@ -274,7 +274,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 3200,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,
@@ -300,7 +300,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 1700,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,
@@ -326,7 +326,7 @@ const matchData = [
 						score: 1200,
 						damage: [],
 						economy: {
-							loadoutValue: 12000,
+							loadoutValue: 2850,
 							weapon: "Vandal",
 							armor: "full",
 							remaining: 5000,

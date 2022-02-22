@@ -11,23 +11,15 @@ import {
 
 import "./MatchCard.css";
 const MatchCard = (props) => {
-	const data = [
-		{ name: "Round 1", econ: -950, pv: 2400, amt: 2400 },
-		{ name: "Round 2", econ: 4500, pv: 2400, amt: 2400 },
-		{ name: "Round 3", econ: 16748, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 400, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 400, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 400, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 400, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 400, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 400, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 2050, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 4000, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 400, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 400, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 400, pv: 2400, amt: 2400 },
-		{ name: "Page A", econ: 400, pv: 2400, amt: 2400 },
-	];
+	const econData = props.matchData.roundResults.map((match) => {
+		let chartDataObject = {
+			name: "Round: " + match.roundNum,
+			econ: match.playerStats[0].economy.loadoutValue,
+		};
+		return chartDataObject;
+	});
+
+	console.log("ECON DATA: " + JSON.stringify(econData[0]));
 
 	const [dropDown, setDropDown] = useState(false);
 
@@ -47,12 +39,11 @@ const MatchCard = (props) => {
 
 	function calculateMatchResult() {
 		let i, j;
-
 		let playerIndex = 0;
 		let winCount = 0;
 		let lossCount = 0;
-
 		let roundResults = props.matchData.roundResults;
+
 		for (i = 0; i < props.matchData.players.length; i++) {
 			let playerString =
 				props.matchData.players[i].playerID +
@@ -116,7 +107,7 @@ const MatchCard = (props) => {
 		console.log(dropDown);
 
 		if (dropDown) {
-			dropDownElement.style.height = "300px";
+			dropDownElement.style.height = "500px";
 		} else {
 			dropDownElement.style.height = "0px";
 		}
@@ -127,20 +118,20 @@ const MatchCard = (props) => {
 			return (
 				<div className="match-card-drop-down-container" ref={dropDownRef}>
 					<div className="drop-down-chart-container">
-						<button onClick={() => calculateMatchResult()}>CLICK</button>
 						<ResponsiveContainer width="100%" height={250}>
 							<LineChart
-								data={data}
-								margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+								data={econData}
+								margin={{ top: 5, right: 10, bottom: 5, left: -10 }}
 							>
 								<Line type="monotone" dataKey="econ" stroke="#8884d8" />
 								<CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-								<XAxis dataKey="name" />
+								<XAxis dataKey="name" style={{ fontSize: "10px" }} />
 								<YAxis style={{ fontSize: "10px" }} />
 								<Tooltip />
 							</LineChart>
 						</ResponsiveContainer>
 					</div>
+					<div className="drop-down-teams-container"></div>
 				</div>
 			);
 		} else {
@@ -206,7 +197,28 @@ const MatchCard = (props) => {
 					{calculateMatchResult()}
 				</div>
 
-				<div className="match-player-stats"></div>
+				<div className="match-player-stats-container">
+					<div className="match-player-kda">
+						<div>K/D/A</div>
+						<div>26/7/19</div>
+					</div>
+					<div className="match-player-kd">
+						<div>K/D</div>
+						<div>1.5</div>
+					</div>
+					<div className="match-player-hs-percent">
+						<div>HS%</div>
+						<div>25%</div>
+					</div>
+					<div className="match-player-adr">
+						<div>ADR</div>
+						<div>150</div>
+					</div>
+					<div className="match-player-acs">
+						<div>ACS</div>
+						<div>238</div>
+					</div>
+				</div>
 			</div>
 			{renderDropDown()}
 		</div>
