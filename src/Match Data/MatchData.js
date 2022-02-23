@@ -7,6 +7,7 @@ const matchData = [
 			gameMode: "Competitive",
 			isRanked: true,
 			seasonID: "E4 A2",
+			winningTeam: "blue",
 		},
 		players: [
 			{
@@ -478,6 +479,7 @@ const matchData = [
 			gameMode: "Competitive",
 			isRanked: true,
 			seasonID: "E4 A2",
+			winningTeam: "red",
 		},
 		players: [
 			{
@@ -559,6 +561,7 @@ const matchData = [
 			gameMode: "Competitive",
 			isRanked: true,
 			seasonID: "E4 A2",
+			winningTeam: "blue",
 		},
 		players: [
 			{
@@ -640,6 +643,7 @@ const matchData = [
 			gameMode: "Competitive",
 			isRanked: true,
 			seasonID: "E4 A2",
+			winningTeam: "blue",
 		},
 		players: [
 			{

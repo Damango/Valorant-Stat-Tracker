@@ -1,0 +1,16 @@
+.generate-match-data-container {
+	position: absolute;
+	background-color: white;
+	width: 800px;
+	height: 800px;
+	left: 50%;
+	transform: translateX(-50%);
+	box-shadow: 0px 0px 3px 2px gray;
+	z-index: 3;
+}
+
+.close-generate-data-modal {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}

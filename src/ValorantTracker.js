@@ -1,16 +1,63 @@
 import React, { useState } from "react";
 import "./ValorantTracker.css";
 import MatchCard from "./Components/MatchCard/MatchCard";
+import GenerateMatchData from "./GenerateMatchData/GenerateMatchData";
 
 import MatchData from "./Match Data/MatchData";
+import matchData from "./Match Data/MatchData";
 const ValorantTracker = (props) => {
 	const [currentPlayer, setCurrentPlayer] = useState("Busters#zyzz");
+	const [viewState, setViewState] = useState("tracker");
+
+	function getCurrentPlayerStats() {
+		let i;
+
+		//Change the match data index to check all matches later
+		for (i = 0; i < matchData[0].players.length; i++) {
+			if (matchData[0].players[i].playerID === "Busters") {
+				return matchData[0].players[i];
+			}
+		}
+	}
+
+	function calculateWinLossRatio() {
+		let i;
+		let wins = 0;
+		let losses = 0;
+		let theCurrentPlayer = getCurrentPlayerStats();
+		for (i = 0; i < matchData.length; i++) {
+			if (matchData[i].matchInfo.winningTeam === theCurrentPlayer.teamID) {
+				wins++;
+			} else {
+				losses++;
+			}
+		}
+
+		return wins + "/" + losses;
+	}
+
+	function renderViewState() {
+		if (viewState === "generate") {
+			return <GenerateMatchData setViewState={setViewState} />;
+		} else {
+			return "";
+		}
+	}
 
 	return (
 		<div className="valorant-tracker-container">
-			<div className="nav-bar-container"></div>
+			<div className="nav-bar-container">
+				<button
+					onClick={() => {
+						setViewState("generate");
+					}}
+				>
+					Generate Valorant Data
+				</button>
+			</div>
 
 			<div className="main-view-container">
+				{renderViewState()}
 				<div className="main-view-wrapper">
 					<div className="profile-summary-container">
 						<div className="profile-rank-and-details-container">
@@ -68,7 +115,9 @@ const ValorantTracker = (props) => {
 								</div>
 								<div className="match-history-summary-win-loss-container">
 									<div className="win-loss-ratio-text-container">
-										<div className="win-loss-ratio-count">12W / 7L</div>
+										<div className="win-loss-ratio-count">
+											{calculateWinLossRatio()}
+										</div>
 										<div className="win-loss-ratio-percentage">65%</div>
 									</div>
 									<div className="win-loss-ratio-bar">
