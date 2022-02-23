@@ -4,10 +4,11 @@ import MatchCard from "./Components/MatchCard/MatchCard";
 import GenerateMatchData from "./GenerateMatchData/GenerateMatchData";
 
 import MatchData from "./Match Data/MatchData";
-import matchData from "./Match Data/MatchData";
+
 const ValorantTracker = (props) => {
 	const [currentPlayer, setCurrentPlayer] = useState("Busters#zyzz");
 	const [viewState, setViewState] = useState("tracker");
+	const [matchData, setMatchData] = useState(MatchData);
 
 	function getCurrentPlayerStats() {
 		let i;
@@ -38,7 +39,13 @@ const ValorantTracker = (props) => {
 
 	function renderViewState() {
 		if (viewState === "generate") {
-			return <GenerateMatchData setViewState={setViewState} />;
+			return (
+				<GenerateMatchData
+					setViewState={setViewState}
+					matchData={matchData}
+					setMatchData={setMatchData}
+				/>
+			);
 		} else {
 			return "";
 		}
@@ -126,7 +133,7 @@ const ValorantTracker = (props) => {
 								</div>
 							</div>
 							<div className="match-history-card-list-container">
-								{MatchData.map((match, index) => (
+								{matchData.map((match, index) => (
 									<MatchCard
 										matchData={match}
 										index={index}

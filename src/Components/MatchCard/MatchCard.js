@@ -79,6 +79,63 @@ const MatchCard = (props) => {
 		);
 	}
 
+	function calculatePlayerStats() {
+		let i, j;
+		let roundResults = props.matchData.roundResults;
+
+		let kills = 0;
+		let deaths = 0;
+		let assists = Math.floor(Math.random() * 9);
+		let KDRatio = 0;
+		for (i = 0; i < roundResults.length; i++) {
+			for (j = 0; j < roundResults[i].playerStats.length; j++) {
+				if (roundResults[i].playerStats[j].playerID === props.currentPlayer) {
+					kills += roundResults[i].playerStats[j].kills;
+					if (roundResults[i].playerStats[j].died) {
+						deaths += 1;
+					}
+				}
+			}
+		}
+
+		console.log("Kills: " + kills);
+		console.log("Deaths: " + deaths);
+		if (deaths === 0) {
+			KDRatio = Math.round(kills);
+		} else {
+			KDRatio = Math.round((kills / deaths) * 100) / 100;
+		}
+
+		console.log(roundResults);
+
+		return (
+			<div className="match-player-stats-container">
+				<div className="match-player-kda">
+					<div>K/D/A</div>
+					<div>
+						{kills}/{deaths}/{assists}
+					</div>
+				</div>
+				<div className="match-player-kd">
+					<div>K/D</div>
+					<div>{KDRatio}</div>
+				</div>
+				<div className="match-player-hs-percent">
+					<div>HS%</div>
+					<div>25%</div>
+				</div>
+				<div className="match-player-adr">
+					<div>ADR</div>
+					<div>150</div>
+				</div>
+				<div className="match-player-acs">
+					<div>ACS</div>
+					<div>238</div>
+				</div>
+			</div>
+		);
+	}
+
 	function generateRandomDelay() {
 		let theRandomNumber = Math.random() * 0.5;
 
@@ -117,6 +174,13 @@ const MatchCard = (props) => {
 		if (dropDown) {
 			return (
 				<div className="match-card-drop-down-container" ref={dropDownRef}>
+					<button
+						onClick={() => {
+							calculatePlayerStats();
+						}}
+					>
+						CLICK
+					</button>
 					<div className="drop-down-chart-container">
 						<ResponsiveContainer width="100%" height={250}>
 							<LineChart
@@ -197,28 +261,7 @@ const MatchCard = (props) => {
 					{calculateMatchResult()}
 				</div>
 
-				<div className="match-player-stats-container">
-					<div className="match-player-kda">
-						<div>K/D/A</div>
-						<div>26/7/19</div>
-					</div>
-					<div className="match-player-kd">
-						<div>K/D</div>
-						<div>1.5</div>
-					</div>
-					<div className="match-player-hs-percent">
-						<div>HS%</div>
-						<div>25%</div>
-					</div>
-					<div className="match-player-adr">
-						<div>ADR</div>
-						<div>150</div>
-					</div>
-					<div className="match-player-acs">
-						<div>ACS</div>
-						<div>238</div>
-					</div>
-				</div>
+				{calculatePlayerStats()}
 			</div>
 			{renderDropDown()}
 		</div>

@@ -32,7 +32,7 @@ const GenerateMatchData = (props) => {
 	let names = [
 		"Mambu",
 		"SADE",
-		"Busters",
+		"Giga Busters",
 		"DonnieTMain",
 		"EVIL Busters",
 		"Evil Mambu",
@@ -71,11 +71,11 @@ const GenerateMatchData = (props) => {
 
 	function generatePlayerStats() {
 		let playerStatsObject = {
-			playerID: "Busters#zyzz",
+			playerID: names[Math.floor(Math.random() * names.length)] + "#zyzz",
 			kills: Math.floor(Math.random() * 5),
 			damage: Math.floor(Math.random() * 500),
 			score: Math.floor(Math.random() * 1500),
-			damage: [],
+			died: Math.random() < 0.5,
 			economy: {
 				loadoutValue: Math.floor(Math.random() * 7000),
 				weapon: weapons[Math.floor(Math.random() * weapons.length)],
@@ -88,10 +88,33 @@ const GenerateMatchData = (props) => {
 			},
 		};
 		console.log(playerStatsObject);
+		return playerStatsObject;
 	}
 
 	function generateRoundResults(roundIndex) {
 		let playersStats = [];
+		let j;
+		for (j = 0; j < 9; j++) {
+			playersStats.push(generatePlayerStats());
+		}
+		playersStats.push({
+			playerID: "Busters#zyzz",
+			kills: Math.floor(Math.random() * 5),
+			damage: Math.floor(Math.random() * 500),
+			score: Math.floor(Math.random() * 1500),
+			died: Math.random() < 0.5,
+			damage: [],
+			economy: {
+				loadoutValue: 800,
+				weapon: "Vandal",
+				armor: "full",
+				remaining: 5000,
+				spent: 3900,
+			},
+			ability: {
+				test: "Brim Molly",
+			},
+		});
 		let i;
 		for (i = 0; i < 10; i++) {}
 		let roundResultObject = {
@@ -100,30 +123,19 @@ const GenerateMatchData = (props) => {
 			winningTeam: teams[Math.floor(Math.random() * 2)],
 			bombPlanter: "",
 			bombDefuser: "",
-			playerStats: [
-				{
-					playerID: "Busters#zyzz",
-					kills: 4,
-					damage: 375,
-					score: 1200,
-					damage: [],
-					economy: {
-						loadoutValue: 800,
-						weapon: "Vandal",
-						armor: "full",
-						remaining: 5000,
-						spent: 3900,
-					},
-					ability: {
-						test: "Brim Molly",
-					},
-				},
-			],
+			playerStats: playersStats,
 		};
+		console.log(roundResultObject);
+		return roundResultObject;
 	}
 	function generateMatch() {
-		let i;
+		let i, j;
 		let players = [];
+		let roundResults = [];
+
+		for (j = 0; j < 13; j++) {
+			roundResults.push(generateRoundResults(j + 1));
+		}
 
 		for (i = 0; i < 10; i++) {
 			players.push(generateRandomPlayer());
@@ -144,12 +156,21 @@ const GenerateMatchData = (props) => {
 				winningTeam: teams[Math.floor(Math.random() * 2)],
 			},
 			players: players,
+			roundResults: roundResults,
 		};
 
 		console.log(matchObject);
+		return matchObject;
 	}
 
 	function generatePlayerHistory() {}
+
+	function addMatch() {
+		let matchHistory = props.matchData;
+		matchHistory.push(generateMatch());
+		console.log(matchHistory);
+		props.setMatchData(matchHistory);
+	}
 
 	return (
 		<div className="generate-match-data-container">
@@ -184,6 +205,36 @@ const GenerateMatchData = (props) => {
 				}}
 			>
 				PLAYER STATS
+			</button>
+
+			<button
+				onClick={() => {
+					generateRoundResults();
+				}}
+			>
+				ROUND RESULTS
+			</button>
+
+			<button
+				onClick={() => {
+					generateMatch();
+				}}
+				style={{ backgroundColor: "red", color: "white" }}
+			>
+				ENTIRE MATCH GENERATION
+			</button>
+
+			<button
+				onClick={addMatch}
+				style={{
+					width: "200px",
+					position: "absolute",
+					top: "50%",
+					left: "50%",
+					transformTranslate: "-50%, -50%",
+				}}
+			>
+				ADD MATCH
 			</button>
 		</div>
 	);
