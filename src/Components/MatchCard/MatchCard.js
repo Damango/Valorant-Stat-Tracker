@@ -11,6 +11,34 @@ import {
 
 import "./MatchCard.css";
 const MatchCard = (props) => {
+	let lineRef1 = useRef(null);
+
+	let lineRef2 = useRef(null);
+
+	let lineRef3 = useRef(null);
+
+	let lineRef4 = useRef(null);
+
+	const dropDownRef = useRef(null);
+
+	useEffect(() => {
+		let line1 = lineRef1.current;
+		let line2 = lineRef2.current;
+		let line3 = lineRef3.current;
+		let line4 = lineRef4.current;
+
+		line1.style.transitionDelay = generateRandomDelay();
+		line2.style.transitionDelay = generateRandomDelay();
+		line3.style.transitionDelay = generateRandomDelay();
+		line4.style.transitionDelay = generateRandomDelay();
+
+		line1.style.width = "100%";
+		line2.style.height = "100%";
+		line3.style.width = "100%";
+		line4.style.height = "100%";
+
+		//setTimeout(() => {}, 1)
+	}, []);
 	const econData = props.matchData.roundResults.map((match) => {
 		let chartDataObject = {
 			name: "Round: " + match.roundNum,
@@ -22,16 +50,6 @@ const MatchCard = (props) => {
 	console.log("ECON DATA: " + JSON.stringify(econData[0]));
 
 	const [dropDown, setDropDown] = useState(false);
-
-	let lineRef1 = useRef(null);
-
-	let lineRef2 = useRef(null);
-
-	let lineRef3 = useRef(null);
-
-	let lineRef4 = useRef(null);
-
-	const dropDownRef = useRef(null);
 
 	function calculatePlayerInfo() {
 		console.log(props.matchData);
@@ -202,25 +220,6 @@ const MatchCard = (props) => {
 			return "";
 		}
 	}
-
-	useEffect(() => {
-		let line1 = lineRef1.current;
-		let line2 = lineRef2.current;
-		let line3 = lineRef3.current;
-		let line4 = lineRef4.current;
-
-		line1.style.transitionDelay = generateRandomDelay();
-		line2.style.transitionDelay = generateRandomDelay();
-		line3.style.transitionDelay = generateRandomDelay();
-		line4.style.transitionDelay = generateRandomDelay();
-
-		line1.style.width = "100%";
-		line2.style.height = "100%";
-		line3.style.width = "100%";
-		line4.style.height = "100%";
-
-		//setTimeout(() => {}, 1)
-	}, []);
 
 	return (
 		<div className="match-card-container">

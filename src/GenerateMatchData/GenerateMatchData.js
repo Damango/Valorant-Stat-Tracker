@@ -133,13 +133,24 @@ const GenerateMatchData = (props) => {
 		let players = [];
 		let roundResults = [];
 
-		for (j = 0; j < 13; j++) {
+		for (j = 0; j < 26; j++) {
 			roundResults.push(generateRoundResults(j + 1));
 		}
 
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < 9; i++) {
 			players.push(generateRandomPlayer());
 		}
+
+		players.push({
+			playerID: "Busters",
+			tagLine: "zyzz",
+			teamID: teams[Math.floor(Math.random() * 2)],
+			partyID: "test",
+			agent: agents[Math.floor(Math.random() * agents.length)],
+			compRank: "Immortal II",
+			playerLevel: Math.floor(Math.random() * 500),
+			stats: [],
+		});
 
 		let matchObject = {
 			matchInfo: {

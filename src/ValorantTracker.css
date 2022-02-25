@@ -26,7 +26,7 @@
 .profile-summary-container {
 	margin-right: 0px;
 	border: 1px solid gray;
-	height: 600px;
+
 	padding: 10px;
 	box-sizing: border-box;
 }
@@ -162,6 +162,39 @@
 
 .peak-rank-name-text {
 	font-weight: bold;
+}
+
+.favorite-agents-container {
+	margin-top: 20px;
+	background-color: white;
+	box-sizing: border-box;
+	padding: 20px;
+}
+
+.favorite-agent-container {
+	box-sizing: border-box;
+	border: 1px solid black;
+	box-sizing: border-box;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.fav-agent-match-count {
+}
+
+.fav-agent-icon {
+	background: url("./media/chambericon.png");
+	background-size: cover;
+	background-position: center;
+	width: 50px;
+	height: 50px;
+
+	border-radius: 50%;
+}
+
+.fav-agent-stats-container {
+	margin-left: 20px;
 }
 
 .match-history-container {
