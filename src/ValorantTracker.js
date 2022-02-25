@@ -37,6 +37,28 @@ const ValorantTracker = (props) => {
 		return wins + "/" + losses;
 	}
 
+	function calculateFavoriteAgent() {
+		let i;
+
+		let agentMap = new Map();
+
+		for (i = 0; i < matchData.length; i++) {
+			let agentIndex = matchData[i].players.findIndex(
+				(player) => player.playerID + "#" + player.tagLine === currentPlayer
+			);
+
+			if (agentMap.has(matchData[i].players[agentIndex].agent)) {
+				let agentCount = agentMap.get(matchData[i].players[agentIndex].agent);
+				console.log("AGENT COUNT: " + agentCount);
+				agentMap.set(matchData[i].players[agentIndex].agent, agentCount + 1);
+			} else {
+				agentMap.set(matchData[i].players[agentIndex].agent, 1);
+			}
+		}
+
+		console.log(agentMap);
+	}
+
 	function renderViewState() {
 		if (viewState === "generate") {
 			return (
@@ -97,11 +119,27 @@ const ValorantTracker = (props) => {
 						</div>
 
 						<div className="favorite-agents-container">
+							<span>FAVORITE AGENTS</span>
+							<button
+								onClick={() => {
+									calculateFavoriteAgent();
+								}}
+							>
+								CLICK
+							</button>
 							<div className="favorite-agent-container fav-agent-1">
-								Chamber
+								<div className="fav-agent-icon"></div>
+								<div className="fav-agent-stats-container">
+									<div className="fav-agent-name">Chamber</div>
+									<div className="fav-agent-match-count">244 Matches</div>
+								</div>
+								<div className="fav-agent-win-rate">89% WR</div>
 							</div>
 							<div className="favorite-agent-container fav-agent-2">
-								Kill Joy
+								<div className="fav-agent-icon"></div>
+								<div className="fav-agent-name">Killjoy</div>
+								<div className="fav-agent-match-count"></div>
+								<div className="fav-agent-win-rate"></div>
 							</div>
 						</div>
 					</div>
