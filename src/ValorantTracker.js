@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ValorantTracker.css";
 import MatchCard from "./Components/MatchCard/MatchCard";
 import GenerateMatchData from "./GenerateMatchData/GenerateMatchData";
@@ -9,6 +9,12 @@ const ValorantTracker = (props) => {
 	const [currentPlayer, setCurrentPlayer] = useState("Busters#zyzz");
 	const [viewState, setViewState] = useState("tracker");
 	const [matchData, setMatchData] = useState(MatchData);
+
+	const [matchSummary, setMatchSummary] = useState({ wins: 0 });
+
+	useEffect(() => {
+		calculateWinLossRatio();
+	}, matchData);
 
 	function getCurrentPlayerStats() {
 		let i;
@@ -26,6 +32,9 @@ const ValorantTracker = (props) => {
 		let wins = 0;
 		let losses = 0;
 		let theCurrentPlayer = getCurrentPlayerStats();
+		let summaryObject;
+		let winRatio;
+
 		for (i = 0; i < matchData.length; i++) {
 			if (matchData[i].matchInfo.winningTeam === theCurrentPlayer.teamID) {
 				wins++;
@@ -34,7 +43,16 @@ const ValorantTracker = (props) => {
 			}
 		}
 
-		return wins + "/" + losses;
+		winRatio = Math.round((wins / (wins + losses)) * 100);
+
+		summaryObject = {
+			wins: wins,
+			losses: losses,
+			winRatio: winRatio,
+			KADRatio: 2.0,
+		};
+
+		setMatchSummary(summaryObject);
 	}
 
 	function calculateFavoriteAgent() {
@@ -66,6 +84,7 @@ const ValorantTracker = (props) => {
 					setViewState={setViewState}
 					matchData={matchData}
 					setMatchData={setMatchData}
+					calculateWinLossRatio={calculateWinLossRatio}
 				/>
 			);
 		} else {
@@ -161,12 +180,17 @@ const ValorantTracker = (props) => {
 								<div className="match-history-summary-win-loss-container">
 									<div className="win-loss-ratio-text-container">
 										<div className="win-loss-ratio-count">
-											{calculateWinLossRatio()}
+											{matchSummary.wins} / {matchSummary.losses}
 										</div>
-										<div className="win-loss-ratio-percentage">65%</div>
+										<div className="win-loss-ratio-percentage">
+											{matchSummary.winRatio}%
+										</div>
 									</div>
 									<div className="win-loss-ratio-bar">
-										<div className="win-loss-ratio-inner-bar"></div>
+										<div
+											className="win-loss-ratio-inner-bar"
+											style={{ width: matchSummary.winRatio + "%" }}
+										></div>
 									</div>
 								</div>
 							</div>

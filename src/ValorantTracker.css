@@ -269,6 +269,7 @@
 	width: 60%;
 	height: 100%;
 	background-color: #2ecc71;
+	transition: 0.3s;
 }
 
 .match-history-card-list-container {

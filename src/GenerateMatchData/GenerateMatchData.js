@@ -87,7 +87,7 @@ const GenerateMatchData = (props) => {
 				test: "Brim Molly",
 			},
 		};
-		console.log(playerStatsObject);
+
 		return playerStatsObject;
 	}
 
@@ -125,7 +125,7 @@ const GenerateMatchData = (props) => {
 			bombDefuser: "",
 			playerStats: playersStats,
 		};
-		console.log(roundResultObject);
+
 		return roundResultObject;
 	}
 	function generateMatch() {
@@ -157,7 +157,8 @@ const GenerateMatchData = (props) => {
 				matchID: Math.floor(Math.random() * 2000),
 				mapID: maps[Math.floor(Math.random() * maps.length)],
 				gameLength:
-					Math.floor(Math.random() * 60) +
+					Math.floor(Math.random() * 45) +
+					15 +
 					"m" +
 					Math.floor(Math.random() * 60) +
 					"s",
@@ -170,7 +171,7 @@ const GenerateMatchData = (props) => {
 			roundResults: roundResults,
 		};
 
-		console.log(matchObject);
+		props.calculateWinLossRatio();
 		return matchObject;
 	}
 
@@ -179,7 +180,7 @@ const GenerateMatchData = (props) => {
 	function addMatch() {
 		let matchHistory = props.matchData;
 		matchHistory.push(generateMatch());
-		console.log(matchHistory);
+
 		props.setMatchData(matchHistory);
 	}
 
