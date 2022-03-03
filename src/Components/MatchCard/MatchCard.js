@@ -47,13 +47,9 @@ const MatchCard = (props) => {
 		return chartDataObject;
 	});
 
-	console.log("ECON DATA: " + JSON.stringify(econData[0]));
-
 	const [dropDown, setDropDown] = useState(false);
 
-	function calculatePlayerInfo() {
-		console.log(props.matchData);
-	}
+	function calculatePlayerInfo() {}
 
 	function calculateMatchResult() {
 		let i, j;
@@ -73,7 +69,6 @@ const MatchCard = (props) => {
 		}
 
 		for (j = 0; j < roundResults.length; j++) {
-			console.log(roundResults[j].winningTeam);
 			if (
 				roundResults[j].winningTeam ===
 				props.matchData.players[playerIndex].teamID
@@ -83,9 +78,6 @@ const MatchCard = (props) => {
 				lossCount += 1;
 			}
 		}
-
-		console.log("WIN COUNT: " + winCount);
-		console.log("LOSS COUNT: " + lossCount);
 
 		return (
 			<div>
@@ -116,15 +108,11 @@ const MatchCard = (props) => {
 			}
 		}
 
-		console.log("Kills: " + kills);
-		console.log("Deaths: " + deaths);
 		if (deaths === 0) {
 			KDRatio = Math.round(kills);
 		} else {
 			KDRatio = Math.round((kills / deaths) * 100) / 100;
 		}
-
-		console.log(roundResults);
 
 		return (
 			<div className="match-player-stats-container">
@@ -178,8 +166,6 @@ const MatchCard = (props) => {
 
 	function animateDropDown(dropDown) {
 		let dropDownElement = dropDownRef.current;
-		console.log(dropDownElement);
-		console.log(dropDown);
 
 		if (dropDown) {
 			dropDownElement.style.height = "500px";

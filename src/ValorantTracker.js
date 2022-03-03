@@ -10,10 +10,18 @@ const ValorantTracker = (props) => {
 	const [viewState, setViewState] = useState("tracker");
 	const [matchData, setMatchData] = useState(MatchData);
 
-	const [matchSummary, setMatchSummary] = useState({ wins: 0 });
+	const [matchSummary, setMatchSummary] = useState({
+		wins: 0,
+		losses: 0,
+		winRatio: 0,
+		KADRatio: 0.0,
+		mostPlayedAgent: [0, 1],
+		secondMostPlayedAgent: [0, 1],
+	});
 
 	useEffect(() => {
 		calculateWinLossRatio();
+		calculateFavoriteAgent();
 	}, matchData);
 
 	function getCurrentPlayerStats() {
@@ -45,12 +53,11 @@ const ValorantTracker = (props) => {
 
 		winRatio = Math.round((wins / (wins + losses)) * 100);
 
-		summaryObject = {
-			wins: wins,
-			losses: losses,
-			winRatio: winRatio,
-			KADRatio: 2.0,
-		};
+		summaryObject = { ...matchSummary };
+		summaryObject.wins = wins;
+		summaryObject.losses = losses;
+		summaryObject.winRatio = winRatio;
+		summaryObject.KADRatio = 2.0;
 
 		setMatchSummary(summaryObject);
 	}
@@ -60,6 +67,11 @@ const ValorantTracker = (props) => {
 
 		let agentMap = new Map();
 
+		let agentIterator;
+
+		let mostPlayedAgent;
+		let secondMostPlayedAgent;
+
 		for (i = 0; i < matchData.length; i++) {
 			let agentIndex = matchData[i].players.findIndex(
 				(player) => player.playerID + "#" + player.tagLine === currentPlayer
@@ -67,14 +79,46 @@ const ValorantTracker = (props) => {
 
 			if (agentMap.has(matchData[i].players[agentIndex].agent)) {
 				let agentCount = agentMap.get(matchData[i].players[agentIndex].agent);
-				console.log("AGENT COUNT: " + agentCount);
+
 				agentMap.set(matchData[i].players[agentIndex].agent, agentCount + 1);
 			} else {
 				agentMap.set(matchData[i].players[agentIndex].agent, 1);
 			}
 		}
 
-		console.log(agentMap);
+		agentIterator = agentMap.entries();
+
+		if (agentMap.size === 1) {
+			mostPlayedAgent = agentIterator.next().value;
+		} else {
+			for (let i = 0; i < agentMap.size - 1; i++) {
+				let currentAgent = agentIterator.next().value;
+
+				if (!mostPlayedAgent) {
+					mostPlayedAgent = currentAgent;
+				} else {
+					if (mostPlayedAgent[1] < currentAgent[1]) {
+						secondMostPlayedAgent = mostPlayedAgent;
+						mostPlayedAgent = currentAgent;
+					}
+				}
+			}
+		}
+
+		let matchSummaryObj = { ...matchSummary };
+		matchSummaryObj.mostPlayedAgent = mostPlayedAgent;
+		matchSummaryObj.secondMostPlayedAgent = secondMostPlayedAgent;
+
+		console.log(matchSummaryObj);
+
+		//When a new match is added is changes the match summary to remove
+		// the attributes of mostPlayedAgent and secondMostPlayedAgent
+
+		setMatchSummary(matchSummaryObj);
+
+		console.log("MOST PLAYED AGENT: " + mostPlayedAgent[0]);
+		console.log("AGENT MAP " + agentMap.size);
+		//console.log("2nd MOST PLAYED AGENT: " + secondMostPlayedAgent[0]);
 	}
 
 	function renderViewState() {
@@ -149,8 +193,12 @@ const ValorantTracker = (props) => {
 							<div className="favorite-agent-container fav-agent-1">
 								<div className="fav-agent-icon"></div>
 								<div className="fav-agent-stats-container">
-									<div className="fav-agent-name">Chamber</div>
-									<div className="fav-agent-match-count">244 Matches</div>
+									<div className="fav-agent-name">
+										{matchSummary.mostPlayedAgent[0]}
+									</div>
+									<div className="fav-agent-match-count">
+										{matchSummary.mostPlayedAgent[1]} Matches
+									</div>
 								</div>
 								<div className="fav-agent-win-rate">89% WR</div>
 							</div>
