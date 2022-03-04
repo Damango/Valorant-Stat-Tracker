@@ -5,12 +5,15 @@ import GenerateMatchData from "./GenerateMatchData/GenerateMatchData";
 
 import MatchData from "./Match Data/MatchData";
 
+// Match Generation function
+import generateMatches from "./GenerateMatchData/GenerateMatches";
+
 const ValorantTracker = (props) => {
 	const [currentPlayer, setCurrentPlayer] = useState("Busters#zyzz");
 	const [viewState, setViewState] = useState("tracker");
 	const [matchData, setMatchData] = useState(MatchData);
 
-	const [matchSummary, setMatchSummary] = useState({
+	const [historySummary, setHistorySummary] = useState({
 		wins: 0,
 		losses: 0,
 		winRatio: 0,
@@ -20,9 +23,31 @@ const ValorantTracker = (props) => {
 	});
 
 	useEffect(() => {
-		calculateWinLossRatio();
-		calculateFavoriteAgent();
+		let i;
+		let matchArray = MatchData;
+
+		for (i = 0; i < 20; i++) {
+			matchArray.push(generateMatches());
+		}
+
+		setMatchData(matchArray);
+
+		calculateHistorySummary();
 	}, matchData);
+
+	function calculateHistorySummary() {
+		let summaryObject = {};
+		let agents = calculateFavoriteAgent();
+		let winLossStats = calculateWinLossRatio();
+
+		summaryObject.mostPlayedAgent = agents.mostPlayedAgent;
+		summaryObject.wins = winLossStats.wins;
+		summaryObject.losses = winLossStats.losses;
+		summaryObject.winRatio = winLossStats.winRatio;
+		summaryObject.KADRatio = winLossStats.KADRatio;
+		console.log(summaryObject);
+		setHistorySummary(summaryObject);
+	}
 
 	function getCurrentPlayerStats() {
 		let i;
@@ -53,13 +78,16 @@ const ValorantTracker = (props) => {
 
 		winRatio = Math.round((wins / (wins + losses)) * 100);
 
-		summaryObject = { ...matchSummary };
+		summaryObject = { ...historySummary };
 		summaryObject.wins = wins;
 		summaryObject.losses = losses;
 		summaryObject.winRatio = winRatio;
 		summaryObject.KADRatio = 2.0;
 
-		setMatchSummary(summaryObject);
+		console.log(summaryObject);
+		//sethistorySummary(summaryObject);
+
+		return { wins: wins, losses: losses, winRatio: winRatio, KADRatio: 2.0 };
 	}
 
 	function calculateFavoriteAgent() {
@@ -105,20 +133,23 @@ const ValorantTracker = (props) => {
 			}
 		}
 
-		let matchSummaryObj = { ...matchSummary };
-		matchSummaryObj.mostPlayedAgent = mostPlayedAgent;
-		matchSummaryObj.secondMostPlayedAgent = secondMostPlayedAgent;
+		let historySummaryObj = { ...historySummary };
+		historySummaryObj.mostPlayedAgent = mostPlayedAgent;
+		historySummaryObj.secondMostPlayedAgent = secondMostPlayedAgent;
 
-		console.log(matchSummaryObj);
+		console.log(historySummaryObj);
 
 		//When a new match is added is changes the match summary to remove
 		// the attributes of mostPlayedAgent and secondMostPlayedAgent
 
-		setMatchSummary(matchSummaryObj);
-
 		console.log("MOST PLAYED AGENT: " + mostPlayedAgent[0]);
 		console.log("AGENT MAP " + agentMap.size);
 		//console.log("2nd MOST PLAYED AGENT: " + secondMostPlayedAgent[0]);
+
+		return {
+			mostPlayedAgent: mostPlayedAgent,
+			secondMostPlayedAgent: secondMostPlayedAgent,
+		};
 	}
 
 	function renderViewState() {
@@ -194,10 +225,10 @@ const ValorantTracker = (props) => {
 								<div className="fav-agent-icon"></div>
 								<div className="fav-agent-stats-container">
 									<div className="fav-agent-name">
-										{matchSummary.mostPlayedAgent[0]}
+										{historySummary.mostPlayedAgent[0]}
 									</div>
 									<div className="fav-agent-match-count">
-										{matchSummary.mostPlayedAgent[1]} Matches
+										{historySummary.mostPlayedAgent[1]} Matches
 									</div>
 								</div>
 								<div className="fav-agent-win-rate">89% WR</div>
@@ -228,16 +259,16 @@ const ValorantTracker = (props) => {
 								<div className="match-history-summary-win-loss-container">
 									<div className="win-loss-ratio-text-container">
 										<div className="win-loss-ratio-count">
-											{matchSummary.wins} / {matchSummary.losses}
+											{historySummary.wins} / {historySummary.losses}
 										</div>
 										<div className="win-loss-ratio-percentage">
-											{matchSummary.winRatio}%
+											{historySummary.winRatio}%
 										</div>
 									</div>
 									<div className="win-loss-ratio-bar">
 										<div
 											className="win-loss-ratio-inner-bar"
-											style={{ width: matchSummary.winRatio + "%" }}
+											style={{ width: historySummary.winRatio + "%" }}
 										></div>
 									</div>
 								</div>
