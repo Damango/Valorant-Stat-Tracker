@@ -21,6 +21,10 @@ const MatchCard = (props) => {
 
 	const dropDownRef = useRef(null);
 
+	const playerTest = [1, 2, 3, 4, 5];
+
+	let teams = sortTeams();
+
 	useEffect(() => {
 		let line1 = lineRef1.current;
 		let line2 = lineRef2.current;
@@ -37,6 +41,7 @@ const MatchCard = (props) => {
 		line3.style.width = "100%";
 		line4.style.height = "100%";
 
+		teams = sortTeams();
 		//setTimeout(() => {}, 1)
 	}, []);
 	const econData = props.matchData.roundResults.map((match) => {
@@ -142,6 +147,23 @@ const MatchCard = (props) => {
 		);
 	}
 
+	function sortTeams() {
+		let i;
+		let blueTeam = [];
+		let redTeam = [];
+		for (i = 0; i < props.matchData.players.length; i++) {
+			if (props.matchData.players[i].teamID === "blue") {
+				blueTeam.push(props.matchData.players[i]);
+			} else {
+				redTeam.push(props.matchData.players[i]);
+			}
+		}
+
+		console.log(redTeam, blueTeam);
+
+		return { redTeam: redTeam, blueTeam: blueTeam };
+	}
+
 	function generateRandomDelay() {
 		let theRandomNumber = Math.random() * 0.5;
 
@@ -166,9 +188,9 @@ const MatchCard = (props) => {
 
 	function animateDropDown(dropDown) {
 		let dropDownElement = dropDownRef.current;
-
+		//Check if changing classes dynamically will allow for smooth animations with percentages
 		if (dropDown) {
-			dropDownElement.style.height = "500px";
+			dropDownElement.style.height = "1000px";
 		} else {
 			dropDownElement.style.height = "0px";
 		}
@@ -180,7 +202,7 @@ const MatchCard = (props) => {
 				<div className="match-card-drop-down-container" ref={dropDownRef}>
 					<button
 						onClick={() => {
-							calculatePlayerStats();
+							console.log(props);
 						}}
 					>
 						CLICK
@@ -199,7 +221,56 @@ const MatchCard = (props) => {
 							</LineChart>
 						</ResponsiveContainer>
 					</div>
-					<div className="drop-down-teams-container"></div>
+					<div className="drop-down-teams-container">
+						<div className="drop-down-team-a drop-down-team">
+							{teams.blueTeam.map((player, index) => (
+								<div className="drop-down-player-container">
+									<div className="drop-down-team-agent-icon-container">
+										<div className="drop-down-team-agent-icon"></div>
+									</div>
+									<div className="drop-down-team-player-name">
+										{player.playerID} #{player.tagLine}
+									</div>
+									<div className="drop-down-team-player-rank-container">
+										<div className="drop-down-team-player-rank">PLAT</div>
+									</div>
+									<div className="drop-down-team-acs">300</div>
+									<div className="drop-down-team-kills">30</div>
+									<div className="drop-down-team-deaths">0</div>
+									<div className="drop-down-team-assists">15</div>
+									<div className="drop-down-team-kd">4.00</div>
+									<div className="drop-down-team-adr">156</div>
+									<div className="drop-down-team-hs-percent">25%</div>
+									<div className="drop-down-team-econ">98</div>
+								</div>
+							))}
+						</div>
+						<div className="drop-down-team-b drop-down-team">
+							<div className="drop-down-team-a drop-down-team">
+								{teams.redTeam.map((player, index) => (
+									<div className="drop-down-player-container">
+										<div className="drop-down-team-agent-icon-container">
+											<div className="drop-down-team-agent-icon"></div>
+										</div>
+										<div className="drop-down-team-player-name">
+											{player.playerID} #{player.tagLine}
+										</div>
+										<div className="drop-down-team-player-rank-container">
+											<div className="drop-down-team-player-rank">PLAT</div>
+										</div>
+										<div className="drop-down-team-acs">300</div>
+										<div className="drop-down-team-kills">30</div>
+										<div className="drop-down-team-deaths">0</div>
+										<div className="drop-down-team-assists">15</div>
+										<div className="drop-down-team-kd">4.00</div>
+										<div className="drop-down-team-adr">156</div>
+										<div className="drop-down-team-hs-percent">25%</div>
+										<div className="drop-down-team-econ">98</div>
+									</div>
+								))}
+							</div>
+						</div>
+					</div>
 				</div>
 			);
 		} else {

@@ -158,7 +158,7 @@ function generateMatch() {
 		players: players,
 		roundResults: roundResults,
 	};
-	console.log(matchObject);
+	//console.log(matchObject);
 
 	return matchObject;
 }

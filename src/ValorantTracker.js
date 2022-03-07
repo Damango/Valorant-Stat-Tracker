@@ -39,25 +39,44 @@ const ValorantTracker = (props) => {
 		let summaryObject = {};
 		let agents = calculateFavoriteAgent();
 		let winLossStats = calculateWinLossRatio();
+		let KAD = calculateKADSummary();
 
 		summaryObject.mostPlayedAgent = agents.mostPlayedAgent;
+		summaryObject.secondMostPlayedAgent = agents.secondMostPlayedAgent;
 		summaryObject.wins = winLossStats.wins;
 		summaryObject.losses = winLossStats.losses;
 		summaryObject.winRatio = winLossStats.winRatio;
-		summaryObject.KADRatio = winLossStats.KADRatio;
+		summaryObject.KADRatio = KAD;
 		console.log(summaryObject);
 		setHistorySummary(summaryObject);
 	}
 
 	function getCurrentPlayerStats() {
 		let i;
-
 		//Change the match data index to check all matches later
 		for (i = 0; i < matchData[0].players.length; i++) {
 			if (matchData[0].players[i].playerID === "Busters") {
 				return matchData[0].players[i];
 			}
 		}
+	}
+
+	function calculateKADSummary() {
+		let i, j;
+		let kills = 0,
+			deaths = 0;
+		for (i = 0; i < matchData.length; i++) {
+			for (j = 0; j < matchData[i].roundResults.length; j++) {
+				let agentIndex = matchData[i].roundResults[j].playerStats.findIndex(
+					(player) => player.playerID === currentPlayer
+				);
+				kills += matchData[i].roundResults[j].playerStats[agentIndex].kills;
+				matchData[i].roundResults[j].playerStats[agentIndex].died
+					? (deaths += 1)
+					: (deaths += 0);
+			}
+		}
+		return Math.round((kills / deaths) * 100) / 100;
 	}
 
 	function calculateWinLossRatio() {
@@ -67,7 +86,6 @@ const ValorantTracker = (props) => {
 		let theCurrentPlayer = getCurrentPlayerStats();
 		let summaryObject;
 		let winRatio;
-
 		for (i = 0; i < matchData.length; i++) {
 			if (matchData[i].matchInfo.winningTeam === theCurrentPlayer.teamID) {
 				wins++;
@@ -75,39 +93,28 @@ const ValorantTracker = (props) => {
 				losses++;
 			}
 		}
-
 		winRatio = Math.round((wins / (wins + losses)) * 100);
-
 		summaryObject = { ...historySummary };
 		summaryObject.wins = wins;
 		summaryObject.losses = losses;
 		summaryObject.winRatio = winRatio;
 		summaryObject.KADRatio = 2.0;
 
-		console.log(summaryObject);
-		//sethistorySummary(summaryObject);
-
 		return { wins: wins, losses: losses, winRatio: winRatio, KADRatio: 2.0 };
 	}
 
 	function calculateFavoriteAgent() {
 		let i;
-
 		let agentMap = new Map();
-
 		let agentIterator;
-
 		let mostPlayedAgent;
 		let secondMostPlayedAgent;
-
 		for (i = 0; i < matchData.length; i++) {
 			let agentIndex = matchData[i].players.findIndex(
 				(player) => player.playerID + "#" + player.tagLine === currentPlayer
 			);
-
 			if (agentMap.has(matchData[i].players[agentIndex].agent)) {
 				let agentCount = agentMap.get(matchData[i].players[agentIndex].agent);
-
 				agentMap.set(matchData[i].players[agentIndex].agent, agentCount + 1);
 			} else {
 				agentMap.set(matchData[i].players[agentIndex].agent, 1);
@@ -132,20 +139,6 @@ const ValorantTracker = (props) => {
 				}
 			}
 		}
-
-		let historySummaryObj = { ...historySummary };
-		historySummaryObj.mostPlayedAgent = mostPlayedAgent;
-		historySummaryObj.secondMostPlayedAgent = secondMostPlayedAgent;
-
-		console.log(historySummaryObj);
-
-		//When a new match is added is changes the match summary to remove
-		// the attributes of mostPlayedAgent and secondMostPlayedAgent
-
-		console.log("MOST PLAYED AGENT: " + mostPlayedAgent[0]);
-		console.log("AGENT MAP " + agentMap.size);
-		//console.log("2nd MOST PLAYED AGENT: " + secondMostPlayedAgent[0]);
-
 		return {
 			mostPlayedAgent: mostPlayedAgent,
 			secondMostPlayedAgent: secondMostPlayedAgent,
@@ -214,13 +207,7 @@ const ValorantTracker = (props) => {
 
 						<div className="favorite-agents-container">
 							<span>FAVORITE AGENTS</span>
-							<button
-								onClick={() => {
-									calculateFavoriteAgent();
-								}}
-							>
-								CLICK
-							</button>
+
 							<div className="favorite-agent-container fav-agent-1">
 								<div className="fav-agent-icon"></div>
 								<div className="fav-agent-stats-container">
@@ -235,9 +222,13 @@ const ValorantTracker = (props) => {
 							</div>
 							<div className="favorite-agent-container fav-agent-2">
 								<div className="fav-agent-icon"></div>
-								<div className="fav-agent-name">Killjoy</div>
-								<div className="fav-agent-match-count"></div>
-								<div className="fav-agent-win-rate"></div>
+								<div className="fav-agent-name">
+									{historySummary.secondMostPlayedAgent[0]}
+								</div>
+								<div className="fav-agent-match-count">
+									{historySummary.secondMostPlayedAgent[1]} Matches
+								</div>
+								<div className="fav-agent-win-rate">89% WR</div>
 							</div>
 						</div>
 					</div>
@@ -247,6 +238,7 @@ const ValorantTracker = (props) => {
 							<div className="match-history-summary">
 								<div className="match-history-summary-rank">
 									<div className="match-history-summary-rank-image"></div>
+
 									<div className="match-history-summary-rank-text-container">
 										<div>Immortal</div>
 										<div>80RR</div>
@@ -254,7 +246,7 @@ const ValorantTracker = (props) => {
 								</div>
 								<div className="match-history-summary-kad">
 									<div>KAD Ratio</div>
-									<div>1.69</div>
+									<div>{historySummary.KADRatio}</div>
 								</div>
 								<div className="match-history-summary-win-loss-container">
 									<div className="win-loss-ratio-text-container">
