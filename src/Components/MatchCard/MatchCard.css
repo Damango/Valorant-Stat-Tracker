@@ -153,33 +153,11 @@
 
 .drop-down-team {
 	position: relative;
-	background-color: green;
+
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 }
 
 .drop-down-team div {
-}
-
-.drop-down-player-container {
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: space-evenly;
-
-	background-color: orange;
-	width: 100%;
-	margin-bottom: 2px;
-	height: 50px;
-}
-
-.drop-down-team-player-name {
-	background-color: purple;
-}
-
-.drop-down-team-agent-icon {
-	width: 20px;
-	height: 20px;
-	background-color: blue;
 }

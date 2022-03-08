@@ -1,0 +1,49 @@
+.drop-down-player-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+
+	width: 100%;
+	margin-bottom: 2px;
+	height: 75px;
+
+	border: 1px solid rgba(128, 128, 128, 0.308);
+}
+
+.drop-down-player-agent-name-container {
+	position: relative;
+	width: 200px;
+	display: flex;
+	align-items: center;
+}
+
+.drop-down-team-player-name {
+	display: inline-block;
+}
+
+.drop-down-team-agent-icon {
+	position: relative;
+	left: -20px;
+	width: 40px;
+	height: 40px;
+
+	display: inline-block;
+	background-size: cover;
+}
+
+.drop-down-team-header {
+	padding: 10px;
+}
+
+.team-red {
+	background-color: rgb(207, 22, 8);
+	color: white;
+	font-family: "Inter";
+}
+
+.team-blue {
+	background-color: rgb(0, 79, 224);
+	color: white;
+	font-family: "Inter";
+}

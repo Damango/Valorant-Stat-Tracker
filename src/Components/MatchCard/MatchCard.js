@@ -9,6 +9,8 @@ import {
 	ResponsiveContainer,
 } from "recharts";
 
+import DropDownTeamPlayer from "./DropDownTeamPlayer/DropDownTeamPlayer";
+
 import "./MatchCard.css";
 const MatchCard = (props) => {
 	let lineRef1 = useRef(null);
@@ -21,9 +23,7 @@ const MatchCard = (props) => {
 
 	const dropDownRef = useRef(null);
 
-	const playerTest = [1, 2, 3, 4, 5];
-
-	let teams = sortTeams();
+	const [teams, setTeams] = useState();
 
 	useEffect(() => {
 		let line1 = lineRef1.current;
@@ -41,8 +41,7 @@ const MatchCard = (props) => {
 		line3.style.width = "100%";
 		line4.style.height = "100%";
 
-		teams = sortTeams();
-		//setTimeout(() => {}, 1)
+		setTeams(sortAndCalcualteTeamStats());
 	}, []);
 	const econData = props.matchData.roundResults.map((match) => {
 		let chartDataObject = {
@@ -147,19 +146,59 @@ const MatchCard = (props) => {
 		);
 	}
 
-	function sortTeams() {
+	function sortAndCalcualteTeamStats() {
+		let players = props.matchData.players;
 		let i;
+		let j;
+		let k;
 		let blueTeam = [];
 		let redTeam = [];
-		for (i = 0; i < props.matchData.players.length; i++) {
-			if (props.matchData.players[i].teamID === "blue") {
-				blueTeam.push(props.matchData.players[i]);
-			} else {
-				redTeam.push(props.matchData.players[i]);
+
+		let roundResults = props.matchData.roundResults;
+		for (i = 0; i < players.length; i++) {
+			for (j = 0; j < roundResults.length; j++) {
+				for (k = 0; k < roundResults[j].playerStats.length; k++) {
+					if (
+						players[i].playerID + "#" + players[i].tagLine ===
+						roundResults[j].playerStats[k].playerID
+					) {
+						if (players[i].stats.kills === undefined) {
+							players[i].stats.kills = roundResults[j].playerStats[k].kills;
+							players[i].stats.adr = 300;
+							players[i].stats.deaths = 0;
+							players[i].stats.assists = Math.floor(Math.random() * 100);
+							players[i].stats.KDA =
+								Math.round(
+									(players[i].stats.kills / players[i].stats.deaths) * 100
+								) / 100;
+						} else {
+							players[i].stats.kills += roundResults[j].playerStats[k].kills;
+							players[i].stats.adr = 300;
+							players[i].stats.deaths += roundResults[j].playerStats[k].died
+								? 1
+								: 0;
+
+							players[i].stats.KDA =
+								Math.round(
+									(players[i].stats.kills / players[i].stats.deaths) * 100
+								) / 100;
+						}
+					}
+				}
 			}
 		}
 
-		console.log(redTeam, blueTeam);
+		for (i = 0; i < players.length; i++) {
+			if (players[i].teamID === "blue") {
+				blueTeam.push(players[i]);
+			} else {
+				redTeam.push(players[i]);
+			}
+		}
+
+		//console.log(blueTeam);
+
+		console.log("running");
 
 		return { redTeam: redTeam, blueTeam: blueTeam };
 	}
@@ -190,23 +229,18 @@ const MatchCard = (props) => {
 		let dropDownElement = dropDownRef.current;
 		//Check if changing classes dynamically will allow for smooth animations with percentages
 		if (dropDown) {
-			dropDownElement.style.height = "1000px";
+			dropDownElement.style.height = "1150px";
 		} else {
 			dropDownElement.style.height = "0px";
 		}
 	}
 
+	function renderAgentIcon() {}
+
 	function renderDropDown() {
 		if (dropDown) {
 			return (
 				<div className="match-card-drop-down-container" ref={dropDownRef}>
-					<button
-						onClick={() => {
-							console.log(props);
-						}}
-					>
-						CLICK
-					</button>
 					<div className="drop-down-chart-container">
 						<ResponsiveContainer width="100%" height={250}>
 							<LineChart
@@ -223,50 +257,16 @@ const MatchCard = (props) => {
 					</div>
 					<div className="drop-down-teams-container">
 						<div className="drop-down-team-a drop-down-team">
+							<div className="drop-down-team-header team-blue">TEAM BLUE</div>
 							{teams.blueTeam.map((player, index) => (
-								<div className="drop-down-player-container">
-									<div className="drop-down-team-agent-icon-container">
-										<div className="drop-down-team-agent-icon"></div>
-									</div>
-									<div className="drop-down-team-player-name">
-										{player.playerID} #{player.tagLine}
-									</div>
-									<div className="drop-down-team-player-rank-container">
-										<div className="drop-down-team-player-rank">PLAT</div>
-									</div>
-									<div className="drop-down-team-acs">300</div>
-									<div className="drop-down-team-kills">30</div>
-									<div className="drop-down-team-deaths">0</div>
-									<div className="drop-down-team-assists">15</div>
-									<div className="drop-down-team-kd">4.00</div>
-									<div className="drop-down-team-adr">156</div>
-									<div className="drop-down-team-hs-percent">25%</div>
-									<div className="drop-down-team-econ">98</div>
-								</div>
+								<DropDownTeamPlayer player={player} index={index} />
 							))}
 						</div>
 						<div className="drop-down-team-b drop-down-team">
+							<div className="drop-down-team-header team-red">TEAM RED</div>
 							<div className="drop-down-team-a drop-down-team">
 								{teams.redTeam.map((player, index) => (
-									<div className="drop-down-player-container">
-										<div className="drop-down-team-agent-icon-container">
-											<div className="drop-down-team-agent-icon"></div>
-										</div>
-										<div className="drop-down-team-player-name">
-											{player.playerID} #{player.tagLine}
-										</div>
-										<div className="drop-down-team-player-rank-container">
-											<div className="drop-down-team-player-rank">PLAT</div>
-										</div>
-										<div className="drop-down-team-acs">300</div>
-										<div className="drop-down-team-kills">30</div>
-										<div className="drop-down-team-deaths">0</div>
-										<div className="drop-down-team-assists">15</div>
-										<div className="drop-down-team-kd">4.00</div>
-										<div className="drop-down-team-adr">156</div>
-										<div className="drop-down-team-hs-percent">25%</div>
-										<div className="drop-down-team-econ">98</div>
-									</div>
+									<DropDownTeamPlayer player={player} index={index} />
 								))}
 							</div>
 						</div>

@@ -2,8 +2,8 @@ import React from "react";
 import "./GenerateMatchData.css";
 
 const GenerateMatchData = (props) => {
-	let teams = ["red", "blue"];
-	let maps = [
+	const teams = ["red", "blue"];
+	const maps = [
 		"Ascent",
 		"Haven",
 		"Icebox",
@@ -12,11 +12,11 @@ const GenerateMatchData = (props) => {
 		"Fracture",
 		"Split",
 	];
-	let agents = [
+	const agents = [
 		"Chamber",
 		"Raze",
 		"Jett",
-		"Reyena",
+		"Reyna",
 		"Sova",
 		"Viper",
 		"Neon",
@@ -27,9 +27,10 @@ const GenerateMatchData = (props) => {
 		"Cypher",
 		"Astra",
 		"Brimstone",
+		"Skye",
 	];
 
-	let names = [
+	const names = [
 		"Mambu",
 		"SADE",
 		"Giga Busters",
@@ -42,7 +43,7 @@ const GenerateMatchData = (props) => {
 		"Evil Foster",
 	];
 
-	let weapons = [
+	const weapons = [
 		"Classic",
 		"Vandal",
 		"Phantom",
@@ -151,6 +152,8 @@ const GenerateMatchData = (props) => {
 			playerLevel: Math.floor(Math.random() * 500),
 			stats: [],
 		});
+
+		console.log(agents);
 
 		let matchObject = {
 			matchInfo: {

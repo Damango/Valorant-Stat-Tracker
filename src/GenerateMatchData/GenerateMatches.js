@@ -4,7 +4,7 @@ let agents = [
 	"Chamber",
 	"Raze",
 	"Jett",
-	"Reyena",
+	"Reyna",
 	"Sova",
 	"Viper",
 	"Neon",
@@ -15,6 +15,7 @@ let agents = [
 	"Cypher",
 	"Astra",
 	"Brimstone",
+	"Skye",
 ];
 
 let names = [
@@ -60,7 +61,7 @@ function generateRandomPlayer() {
 function generatePlayerStats() {
 	let playerStatsObject = {
 		playerID: names[Math.floor(Math.random() * names.length)] + "#zyzz",
-		kills: Math.floor(Math.random() * 5),
+		kills: Math.floor(Math.random() * 2),
 		damage: Math.floor(Math.random() * 500),
 		score: Math.floor(Math.random() * 1500),
 		died: Math.random() < 0.5,
