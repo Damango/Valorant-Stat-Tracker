@@ -100,6 +100,8 @@ const ValorantTracker = (props) => {
 		summaryObject.winRatio = winRatio;
 		summaryObject.KADRatio = 2.0;
 
+		console.log(summaryObject);
+
 		return { wins: wins, losses: losses, winRatio: winRatio, KADRatio: 2.0 };
 	}
 
@@ -138,6 +140,10 @@ const ValorantTracker = (props) => {
 					}
 				}
 			}
+		}
+
+		if (!secondMostPlayedAgent) {
+			secondMostPlayedAgent = [0, 1];
 		}
 		return {
 			mostPlayedAgent: mostPlayedAgent,
@@ -220,13 +226,15 @@ const ValorantTracker = (props) => {
 								</div>
 								<div className="fav-agent-win-rate">89% WR</div>
 							</div>
-							<div className="favorite-agent-container fav-agent-2">
+							<div className="favorite-agent-container fav-agent-1">
 								<div className="fav-agent-icon"></div>
-								<div className="fav-agent-name">
-									{historySummary.secondMostPlayedAgent[0]}
-								</div>
-								<div className="fav-agent-match-count">
-									{historySummary.secondMostPlayedAgent[1]} Matches
+								<div className="fav-agent-stats-container">
+									<div className="fav-agent-name">
+										{historySummary.secondMostPlayedAgent[0]}
+									</div>
+									<div className="fav-agent-match-count">
+										{historySummary.secondMostPlayedAgent[1]} Matches
+									</div>
 								</div>
 								<div className="fav-agent-win-rate">89% WR</div>
 							</div>

@@ -61,7 +61,7 @@ function generateRandomPlayer() {
 function generatePlayerStats() {
 	let playerStatsObject = {
 		playerID: names[Math.floor(Math.random() * names.length)] + "#zyzz",
-		kills: Math.floor(Math.random() * 2),
+		kills: Math.floor(Math.random() * 2.5),
 		damage: Math.floor(Math.random() * 500),
 		score: Math.floor(Math.random() * 1500),
 		died: Math.random() < 0.5,
