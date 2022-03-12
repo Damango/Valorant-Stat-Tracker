@@ -184,7 +184,7 @@
 }
 
 .fav-agent-icon {
-	background: url("./media/chambericon.png");
+	
 	background-size: cover;
 	background-position: center;
 	width: 50px;
@@ -287,7 +287,7 @@
 
 	.main-view-wrapper {
 		position: relative;
-		width: 90%;
+		width: 99%;
 		left: 50%;
 		transform: translateX(-50%);
 	
@@ -298,5 +298,90 @@
 	}
 	
 
+
+}
+
+
+@media only screen and (max-width: 600px) {
+
+	.profile-icon-name-container{
+		height: 220px;
+		
+	}
+
+	.profile-rank-and-details-container{
+	
+	}
+
+	.account-ranks-container{
+		margin-top: 20px;
+	}
+
+	.account-current-rank-container{
+		
+		
+	}
+
+.profile-icon-container{
+	width: 125px;
+	height: 125px;
+}
+
+.account-current-rank-container{
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	
+	width: 60%;
+}
+
+
+.current-rank-image-container {
+	width: 80px;
+}
+
+.current-rank-image {
+	position: relative;
+	width: 80px;
+	height: 50px;
+	background: url("./media/immortalicon.png");
+	background-position: center center;
+	background-size: cover;
+	display: inline-block;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.current-rank-name-text{
+	font-size: 19px;
+}
+.peak-rank-image-container {
+	width: 80px;
+}
+
+.peak-rank-image {
+	position: relative;
+	width: 60px;
+	height: 60px;
+	background: url("./media/raidanticon.png");
+	background-position: center center;
+	background-size: cover;
+	display: inline-block;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.account-peak-rank-container{
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	
+	width: 60%;
+}
+
+.peak-rank-name-text{
+
+	font-size: 16px;
+
+}
 
 }

@@ -8,6 +8,10 @@ import MatchData from "./Match Data/MatchData";
 // Match Generation function
 import generateMatches from "./GenerateMatchData/GenerateMatches";
 
+
+//Agent Image Handler
+import AgentImage from "./Components/AgentImage/AgentImage";
+
 const ValorantTracker = (props) => {
 	const [currentPlayer, setCurrentPlayer] = useState("Busters#zyzz");
 	const [viewState, setViewState] = useState("tracker");
@@ -18,8 +22,8 @@ const ValorantTracker = (props) => {
 		losses: 0,
 		winRatio: 0,
 		KADRatio: 0.0,
-		mostPlayedAgent: [0, 1],
-		secondMostPlayedAgent: [0, 1],
+		mostPlayedAgent: ['...', 0],
+		secondMostPlayedAgent: ['...', 0],
 	});
 
 	useEffect(() => {
@@ -225,8 +229,9 @@ const ValorantTracker = (props) => {
 							<span>FAVORITE AGENTS</span>
 
 							<div className="favorite-agent-container fav-agent-1">
-								<div className="fav-agent-icon"></div>
+								<div className="fav-agent-icon" style={AgentImage(historySummary.mostPlayedAgent[0].toLowerCase())}></div>
 								<div className="fav-agent-stats-container">
+
 									<div className="fav-agent-name">
 										{historySummary.mostPlayedAgent[0]}
 									</div>
@@ -237,7 +242,7 @@ const ValorantTracker = (props) => {
 								<div className="fav-agent-win-rate">89% WR</div>
 							</div>
 							<div className="favorite-agent-container fav-agent-1">
-								<div className="fav-agent-icon"></div>
+								<div className="fav-agent-icon" style={AgentImage(historySummary.secondMostPlayedAgent[0].toLowerCase())}></div>
 								<div className="fav-agent-stats-container">
 									<div className="fav-agent-name">
 										{historySummary.secondMostPlayedAgent[0]}

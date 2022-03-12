@@ -10,6 +10,7 @@ import {
 } from "recharts";
 
 import DropDownTeamPlayer from "./DropDownTeamPlayer/DropDownTeamPlayer";
+import AgentImage from '../AgentImage/AgentImage'
 
 import "./MatchCard.css";
 const MatchCard = (props) => {
@@ -226,13 +227,23 @@ const MatchCard = (props) => {
 		}
 	}
 
-	function renderAgentIcon() { }
+	function findUserAgent() {
+		let i;
+		let players = props.matchData.players;
+		let user = props.currentPlayer
+
+		for (i = 0; i < players.length; i++) {
+			if (players[i].playerID + "#" + players[i].tagLine === user) {
+				return (players[i].agent.toLowerCase())
+			}
+		}
+	}
 
 	function renderDropDown() {
 		if (dropDown) {
 			return (
 				<div className="match-card-drop-down-container" ref={dropDownRef}>
-					<button onClick={() => { console.log(props.matchData.players) }}>CLICK</button>
+					<button onClick={() => { console.log(props) }}>CLICK</button>
 					<div className="drop-down-chart-container">
 						<ResponsiveContainer width="100%" height={250}>
 							<LineChart
@@ -284,7 +295,7 @@ const MatchCard = (props) => {
 				<div className="match-card-line line-4" ref={lineRef4}></div>
 
 				<div className="match-card-champion-icon-container">
-					<div className="match-card-champion-icon"></div>
+					<div className="match-card-champion-icon" style={AgentImage(findUserAgent())}></div>
 				</div>
 				<div className="basic-match-info-container">
 					<div className="match-card-map-time-container">

@@ -121,9 +121,29 @@ function generateMatch() {
 	let i, j;
 	let players = [];
 	let roundResults = [];
+	let blueWins = 0;
+	let redWins = 0;
 
 	for (j = 0; j < 26; j++) {
-		roundResults.push(generateRoundResults(j + 1));
+		let roundResult = generateRoundResults(j + 1);
+
+		if (redWins === 13 || blueWins === 13) {
+			break;
+		}
+
+		else {
+
+
+			if (roundResult.winningTeam === 'blue') {
+				blueWins += 1;
+			}
+			else {
+				redWins += 1;
+			}
+			console.log(roundResult)
+			roundResults.push(roundResult);
+		}
+
 	}
 
 	for (i = 0; i < 9; i++) {

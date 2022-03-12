@@ -78,7 +78,7 @@
 
 .match-card-champion-icon {
 	position: relative;
-	background: url("../../media/chambericon.png");
+	
 	background-position: center center center;
 	background-size: cover;
 	width: 60px;
