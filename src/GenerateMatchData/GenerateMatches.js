@@ -43,11 +43,11 @@ let weapons = [
 	"Marshall",
 	"Odin",
 ];
-function generateRandomPlayer() {
+function generateRandomPlayer(team) {
 	let playerObject = {
 		playerID: names[Math.floor(Math.random() * names.length)],
 		tagLine: "zyzz",
-		teamID: teams[Math.floor(Math.random() * 2)],
+		teamID: team,
 		partyID: "test",
 		agent: agents[Math.floor(Math.random() * agents.length)],
 		compRank: "Immortal II",
@@ -88,7 +88,7 @@ function generateRoundResults(roundIndex) {
 	}
 	playersStats.push({
 		playerID: "Busters#zyzz",
-		kills: Math.floor(Math.random() * 5),
+		kills: Math.floor(Math.random() * 3),
 		damage: Math.floor(Math.random() * 500),
 		score: Math.floor(Math.random() * 1500),
 		died: Math.random() < 0.5,
@@ -105,7 +105,7 @@ function generateRoundResults(roundIndex) {
 		},
 	});
 	let i;
-	for (i = 0; i < 10; i++) {}
+	for (i = 0; i < 10; i++) { }
 	let roundResultObject = {
 		roundNum: roundIndex,
 		roundResult: "defuse",
@@ -127,13 +127,22 @@ function generateMatch() {
 	}
 
 	for (i = 0; i < 9; i++) {
-		players.push(generateRandomPlayer());
+		let player;
+
+		if (i > 4) {
+			player = generateRandomPlayer("blue");
+		}
+		else {
+			player = generateRandomPlayer("red");
+		}
+
+		players.push(player);
 	}
 
 	players.push({
 		playerID: "Busters",
 		tagLine: "zyzz",
-		teamID: teams[Math.floor(Math.random() * 2)],
+		teamID: 'blue',
 		partyID: "test",
 		agent: agents[Math.floor(Math.random() * agents.length)],
 		compRank: "Immortal II",
@@ -164,7 +173,7 @@ function generateMatch() {
 	return matchObject;
 }
 
-function generatePlayerHistory() {}
+function generatePlayerHistory() { }
 
 function addMatch() {
 	//let matchHistory = props.matchData;

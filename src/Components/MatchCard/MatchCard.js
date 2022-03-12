@@ -24,6 +24,10 @@ const MatchCard = (props) => {
 	const dropDownRef = useRef(null);
 
 	const [teams, setTeams] = useState();
+	const [playerObject, setPlayerObject] = useState({ kills: 0, deaths: 0, assists: 0, KDRatio: 0, adr: 0 })
+
+
+
 
 	useEffect(() => {
 		let line1 = lineRef1.current;
@@ -41,7 +45,11 @@ const MatchCard = (props) => {
 		line3.style.width = "100%";
 		line4.style.height = "100%";
 
-		setTeams(sortAndCalcualteTeamStats());
+		setPlayerObject(calculatePlayerStats())
+
+
+
+		setTeams(sortAndCalculateTeamStats());
 	}, []);
 	const econData = props.matchData.roundResults.map((match) => {
 		let chartDataObject = {
@@ -53,7 +61,7 @@ const MatchCard = (props) => {
 
 	const [dropDown, setDropDown] = useState(false);
 
-	function calculatePlayerInfo() {}
+	function calculatePlayerInfo() { }
 
 	function calculateMatchResult() {
 		let i, j;
@@ -101,6 +109,7 @@ const MatchCard = (props) => {
 		let deaths = 0;
 		let assists = Math.floor(Math.random() * 9);
 		let KDRatio = 0;
+
 		for (i = 0; i < roundResults.length; i++) {
 			for (j = 0; j < roundResults[i].playerStats.length; j++) {
 				if (roundResults[i].playerStats[j].playerID === props.currentPlayer) {
@@ -112,41 +121,20 @@ const MatchCard = (props) => {
 			}
 		}
 
+		let adr = Math.floor(((Math.random() * 50) + 80) * Math.round(
+			(kills / deaths) * 100
+		) / 100)
+
 		if (deaths === 0) {
 			KDRatio = Math.round(kills);
 		} else {
 			KDRatio = Math.round((kills / deaths) * 100) / 100;
 		}
 
-		return (
-			<div className="match-player-stats-container">
-				<div className="match-player-kda">
-					<div>K/D/A</div>
-					<div>
-						{kills}/{deaths}/{assists}
-					</div>
-				</div>
-				<div className="match-player-kd">
-					<div>K/D</div>
-					<div>{KDRatio}</div>
-				</div>
-				<div className="match-player-hs-percent">
-					<div>HS%</div>
-					<div>25%</div>
-				</div>
-				<div className="match-player-adr">
-					<div>ADR</div>
-					<div>150</div>
-				</div>
-				<div className="match-player-acs">
-					<div>ACS</div>
-					<div>238</div>
-				</div>
-			</div>
-		);
+		return ({ kills: kills, deaths: deaths, assists: assists, KDRatio: KDRatio, adr: adr })
 	}
 
-	function sortAndCalcualteTeamStats() {
+	function sortAndCalculateTeamStats() {
 		let players = props.matchData.players;
 		let i;
 		let j;
@@ -164,7 +152,9 @@ const MatchCard = (props) => {
 					) {
 						if (players[i].stats.kills === undefined) {
 							players[i].stats.kills = roundResults[j].playerStats[k].kills;
-							players[i].stats.adr = 300;
+							players[i].stats.adr = Math.floor(((Math.random() * 50) + 80) * Math.round(
+								(players[i].stats.kills / players[i].stats.deaths) * 100
+							) / 100);
 							players[i].stats.deaths = 0;
 							players[i].stats.assists = Math.floor(Math.random() * 100);
 							players[i].stats.KDA =
@@ -173,7 +163,9 @@ const MatchCard = (props) => {
 								) / 100;
 						} else {
 							players[i].stats.kills += roundResults[j].playerStats[k].kills;
-							players[i].stats.adr = 300;
+							players[i].stats.adr = Math.floor(((Math.random() * 50) + 80) * Math.round(
+								(players[i].stats.kills / players[i].stats.deaths) * 100
+							) / 100);
 							players[i].stats.deaths += roundResults[j].playerStats[k].died
 								? 1
 								: 0;
@@ -235,12 +227,13 @@ const MatchCard = (props) => {
 		}
 	}
 
-	function renderAgentIcon() {}
+	function renderAgentIcon() { }
 
 	function renderDropDown() {
 		if (dropDown) {
 			return (
 				<div className="match-card-drop-down-container" ref={dropDownRef}>
+					<button onClick={() => { console.log(props.matchData.players) }}>CLICK</button>
 					<div className="drop-down-chart-container">
 						<ResponsiveContainer width="100%" height={250}>
 							<LineChart
@@ -317,7 +310,30 @@ const MatchCard = (props) => {
 					{calculateMatchResult()}
 				</div>
 
-				{calculatePlayerStats()}
+				<div className="match-player-stats-container">
+					<div className="match-player-kda">
+						<div>K/D/A</div>
+						<div>
+							{playerObject.kills}/{playerObject.deaths}/{playerObject.assists}
+						</div>
+					</div>
+					<div className="match-player-kd">
+						<div>K/D</div>
+						<div>{playerObject.KDRatio}</div>
+					</div>
+					<div className="match-player-hs-percent">
+						<div>HS%</div>
+						<div>25%</div>
+					</div>
+					<div className="match-player-adr">
+						<div>ADR</div>
+						<div>{playerObject.adr}</div>
+					</div>
+					<div className="match-player-acs">
+						<div>ACS</div>
+						<div>238</div>
+					</div>
+				</div>
 			</div>
 			{renderDropDown()}
 		</div>

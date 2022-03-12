@@ -79,14 +79,14 @@ const DropDownTeamPlayer = (props) => {
 			<div className="drop-down-team-player-rank-container">
 				<div className="drop-down-team-player-rank">PLAT</div>
 			</div>
-			<div className="drop-down-team-acs">300</div>
-			<div className="drop-down-team-kills">{props.player.stats.kills}</div>
-			<div className="drop-down-team-deaths">{props.player.stats.deaths}</div>
-			<div className="drop-down-team-assists">{props.player.stats.assists}</div>
-			<div className="drop-down-team-kd">{props.player.stats.KDA}</div>
-			<div className="drop-down-team-adr">156</div>
-			<div className="drop-down-team-hs-percent">25%</div>
-			<div className="drop-down-team-econ">98</div>
+			<div className="drop-down-team-acs drop-down-player-section">300</div>
+			<div className="drop-down-team-kills drop-down-player-section">{props.player.stats.kills}</div>
+			<div className="drop-down-team-deaths drop-down-player-section">{props.player.stats.deaths}</div>
+			<div className="drop-down-team-assists drop-down-player-section">{props.player.stats.assists}</div>
+			<div className="drop-down-team-kd drop-down-player-section">{props.player.stats.KDA}</div>
+			<div className="drop-down-team-adr drop-down-player-section">{props.player.stats.adr}</div>
+			<div className="drop-down-team-hs-percent drop-down-player-section">25%</div>
+			<div className="drop-down-team-econ drop-down-player-section">98</div>
 		</div>
 	);
 };

@@ -11,7 +11,7 @@ import generateMatches from "./GenerateMatchData/GenerateMatches";
 const ValorantTracker = (props) => {
 	const [currentPlayer, setCurrentPlayer] = useState("Busters#zyzz");
 	const [viewState, setViewState] = useState("tracker");
-	const [matchData, setMatchData] = useState(MatchData);
+	const [matchData, setMatchData] = useState(undefined);
 
 	const [historySummary, setHistorySummary] = useState({
 		wins: 0,
@@ -24,16 +24,25 @@ const ValorantTracker = (props) => {
 
 	useEffect(() => {
 		let i;
-		let matchArray = MatchData;
+		let matchArray = [];
 
 		for (i = 0; i < 20; i++) {
 			matchArray.push(generateMatches());
 		}
-
 		setMatchData(matchArray);
 
-		calculateHistorySummary();
-	}, matchData);
+
+
+	}, []);
+
+	useEffect(() => {
+		if (matchData != undefined) {
+			calculateHistorySummary();
+		}
+
+	}, [matchData])
+
+
 
 	function calculateHistorySummary() {
 		let summaryObject = {};
@@ -49,6 +58,7 @@ const ValorantTracker = (props) => {
 		summaryObject.KADRatio = KAD;
 		console.log(summaryObject);
 		setHistorySummary(summaryObject);
+		console.log(historySummary)
 	}
 
 	function getCurrentPlayerStats() {
@@ -171,10 +181,10 @@ const ValorantTracker = (props) => {
 			<div className="nav-bar-container">
 				<button
 					onClick={() => {
-						setViewState("generate");
+						console.log(matchData)
 					}}
 				>
-					Generate Valorant Data
+					View Match Data
 				</button>
 			</div>
 
@@ -274,13 +284,13 @@ const ValorantTracker = (props) => {
 								</div>
 							</div>
 							<div className="match-history-card-list-container">
-								{matchData.map((match, index) => (
+								{(matchData != undefined ? matchData.map((match, index) => (
 									<MatchCard
 										matchData={match}
 										index={index}
 										currentPlayer={currentPlayer}
 									/>
-								))}
+								)) : 'nothing')}
 							</div>
 						</div>
 					</div>
