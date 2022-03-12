@@ -61,7 +61,6 @@ const MatchCard = (props) => {
 
 	const [dropDown, setDropDown] = useState(false);
 
-	function calculatePlayerInfo() { }
 
 	function calculateMatchResult() {
 		let i, j;
@@ -93,10 +92,10 @@ const MatchCard = (props) => {
 
 		return (
 			<div>
-				<div className="match-score">
+				<div className="match-score score-section-container">
 					{winCount} : {lossCount}
 				</div>
-				<div className="match-position">2nd</div>
+				<div className="match-position score-section-container" >2nd</div>
 			</div>
 		);
 	}
@@ -311,25 +310,25 @@ const MatchCard = (props) => {
 				</div>
 
 				<div className="match-player-stats-container">
-					<div className="match-player-kda">
+					<div className="match-player-kda player-section-container">
 						<div>K/D/A</div>
 						<div>
 							{playerObject.kills}/{playerObject.deaths}/{playerObject.assists}
 						</div>
 					</div>
-					<div className="match-player-kd">
+					<div className="match-player-kd player-section-container">
 						<div>K/D</div>
 						<div>{playerObject.KDRatio}</div>
 					</div>
-					<div className="match-player-hs-percent">
+					<div className="match-player-hs-percent player-section-container">
 						<div>HS%</div>
 						<div>25%</div>
 					</div>
-					<div className="match-player-adr">
+					<div className="match-player-adr player-section-container">
 						<div>ADR</div>
 						<div>{playerObject.adr}</div>
 					</div>
-					<div className="match-player-acs">
+					<div className="match-player-acs player-section-container">
 						<div>ACS</div>
 						<div>238</div>
 					</div>
