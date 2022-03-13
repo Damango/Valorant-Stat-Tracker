@@ -1,13 +1,15 @@
 .match-card-container {
 	position: relative;
-	background-color: white;
+	
 
 	width: 80%;
 
 	left: 50%;
 	transform: translateX(-50%);
 	margin-bottom: 20px;
+	opacity: 0;
 	transition: 0.3s;
+
 }
 
 .match-card-line {

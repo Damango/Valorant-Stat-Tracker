@@ -24,6 +24,8 @@ const MatchCard = (props) => {
 
 	const dropDownRef = useRef(null);
 
+	const matchCardRef = useRef(null)
+
 	const [teams, setTeams] = useState();
 	const [playerObject, setPlayerObject] = useState({ kills: 0, deaths: 0, assists: 0, KDRatio: 0, adr: 0 })
 
@@ -35,6 +37,8 @@ const MatchCard = (props) => {
 		let line2 = lineRef2.current;
 		let line3 = lineRef3.current;
 		let line4 = lineRef4.current;
+
+		matchCardRef.current.style.opacity = 1
 
 		line1.style.transitionDelay = generateRandomDelay();
 		line2.style.transitionDelay = generateRandomDelay();
@@ -239,6 +243,18 @@ const MatchCard = (props) => {
 		}
 	}
 
+	function findUser() {
+		let i;
+		let players = props.matchData.players;
+		let user = props.currentPlayer
+
+		for (i = 0; i < players.length; i++) {
+			if (players[i].playerID + "#" + players[i].tagLine === user) {
+				return (players[i])
+			}
+		}
+	}
+
 	function renderDropDown() {
 		if (dropDown) {
 			return (
@@ -281,8 +297,25 @@ const MatchCard = (props) => {
 		}
 	}
 
+
+	function renderMatchCardColor() {
+		let user = findUser()
+
+		if (user.teamID === props.matchData.matchInfo.winningTeam) {
+			return ({ background: 'linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(144,255,172,1) 100%)' })
+		}
+
+		else {
+			return ({ background: 'linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,141,141,1) 100%)' })
+		}
+
+
+	}
+
+
+
 	return (
-		<div className="match-card-container">
+		<div className="match-card-container" style={renderMatchCardColor()} ref={matchCardRef}>
 			<div
 				className="match-card-wrapper"
 				onClick={() => {

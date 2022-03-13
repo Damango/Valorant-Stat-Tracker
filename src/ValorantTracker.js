@@ -26,6 +26,7 @@ const ValorantTracker = (props) => {
 		secondMostPlayedAgent: ['...', 0],
 	});
 
+	console.log(historySummary.mostPlayedAgent[0])
 	useEffect(() => {
 		let i;
 		let matchArray = [];
@@ -60,9 +61,9 @@ const ValorantTracker = (props) => {
 		summaryObject.losses = winLossStats.losses;
 		summaryObject.winRatio = winLossStats.winRatio;
 		summaryObject.KADRatio = KAD;
-		console.log(summaryObject);
+
 		setHistorySummary(summaryObject);
-		console.log(historySummary)
+
 	}
 
 	function getCurrentPlayerStats() {
@@ -114,7 +115,7 @@ const ValorantTracker = (props) => {
 		summaryObject.winRatio = winRatio;
 		summaryObject.KADRatio = 2.0;
 
-		console.log(summaryObject);
+
 
 		return { wins: wins, losses: losses, winRatio: winRatio, KADRatio: 2.0 };
 	}
@@ -157,7 +158,7 @@ const ValorantTracker = (props) => {
 		}
 
 		if (!secondMostPlayedAgent) {
-			secondMostPlayedAgent = [0, 1];
+			secondMostPlayedAgent = ['...', 0];
 		}
 		return {
 			mostPlayedAgent: mostPlayedAgent,
