@@ -1,6 +1,5 @@
 .match-card-container {
 	position: relative;
-	
 
 	width: 80%;
 
@@ -9,7 +8,6 @@
 	margin-bottom: 20px;
 	opacity: 0;
 	transition: 0.3s;
-
 }
 
 .match-card-line {
@@ -80,7 +78,7 @@
 
 .match-card-champion-icon {
 	position: relative;
-	
+
 	background-position: center center center;
 	background-size: cover;
 	width: 60px;
@@ -131,8 +129,6 @@
 	justify-content: space-between;
 }
 
-
-
 .match-player-kda {
 	text-align: right;
 }
@@ -163,20 +159,115 @@
 	width: 100%;
 }
 
+.match-score-position-container-mobile {
+	display: none;
+}
 
 @media only screen and (max-width: 1450px) {
-	.match-card-container{
-		
+	.match-card-container {
 	}
 
-	.player-section-container{
-	
+	.player-section-container {
 	}
 
-	.score-section-container{
-		
+	.score-section-container {
 		text-align: center;
 		width: 50px;
 	}
-  }
+}
 
+@media only screen and (max-width: 600px) {
+	.match-card-container {
+		width: 95%;
+	}
+
+	.match-card-wrapper {
+		height: 85px;
+	}
+
+	.match-card-champion-icon-container {
+		position: relative;
+
+		display: inline-block;
+
+		margin-right: 20px;
+	}
+
+	.match-card-champion-icon {
+		width: 30px;
+		height: 30px;
+	}
+
+	.basic-match-info-container {
+		position: relative;
+
+		width: 200px;
+	}
+
+	.match-card-map {
+		font-size: 12px;
+		width: 40px;
+	}
+
+	.match-card-type {
+		font-size: 12px;
+	}
+
+	.match-card-time {
+		font-size: 12px;
+	}
+
+	.match-card-length {
+		font-size: 12px;
+	}
+
+	.match-card-section {
+	}
+
+	.match-card-rank-container {
+		display: none;
+	}
+
+	.match-score-position-container {
+		display: none;
+	}
+
+	.match-score-position-container-mobile {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		display: inline-block;
+		font-size: 12px;
+	}
+
+	.match-player-stats-container {
+		height: 100%;
+		width: 200px !important;
+		display: flex;
+		margin-left: -30px !important;
+		grid-template-columns: 25% 25% 25% 25%;
+		background-color: red;
+	}
+
+	.match-player-stats-container .player-section-container {
+		position: relative;
+		top: 30px;
+	}
+
+	.match-player-hs-percent {
+		display: none;
+	}
+
+	.match-player-acs {
+		display: none;
+	}
+
+	.match-score-position-container {
+		position: relative;
+		left: -40px;
+	}
+
+	.player-section-container {
+		font-size: 12px;
+	}
+}

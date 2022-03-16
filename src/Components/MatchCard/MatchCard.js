@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 import DropDownTeamPlayer from "./DropDownTeamPlayer/DropDownTeamPlayer";
-import AgentImage from '../AgentImage/AgentImage'
+import AgentImage from "../AgentImage/AgentImage";
 
 import "./MatchCard.css";
 const MatchCard = (props) => {
@@ -24,13 +24,18 @@ const MatchCard = (props) => {
 
 	const dropDownRef = useRef(null);
 
-	const matchCardRef = useRef(null)
+	const matchCardRef = useRef(null);
+
+	const matchResult = calculateMatchResult();
 
 	const [teams, setTeams] = useState();
-	const [playerObject, setPlayerObject] = useState({ kills: 0, deaths: 0, assists: 0, KDRatio: 0, adr: 0 })
-
-
-
+	const [playerObject, setPlayerObject] = useState({
+		kills: 0,
+		deaths: 0,
+		assists: 0,
+		KDRatio: 0,
+		adr: 0,
+	});
 
 	useEffect(() => {
 		let line1 = lineRef1.current;
@@ -38,7 +43,7 @@ const MatchCard = (props) => {
 		let line3 = lineRef3.current;
 		let line4 = lineRef4.current;
 
-		matchCardRef.current.style.opacity = 1
+		matchCardRef.current.style.opacity = 1;
 
 		line1.style.transitionDelay = generateRandomDelay();
 		line2.style.transitionDelay = generateRandomDelay();
@@ -50,9 +55,7 @@ const MatchCard = (props) => {
 		line3.style.width = "100%";
 		line4.style.height = "100%";
 
-		setPlayerObject(calculatePlayerStats())
-
-
+		setPlayerObject(calculatePlayerStats());
 
 		setTeams(sortAndCalculateTeamStats());
 	}, []);
@@ -65,7 +68,6 @@ const MatchCard = (props) => {
 	});
 
 	const [dropDown, setDropDown] = useState(false);
-
 
 	function calculateMatchResult() {
 		let i, j;
@@ -95,14 +97,10 @@ const MatchCard = (props) => {
 			}
 		}
 
-		return (
-			<div>
-				<div className="match-score score-section-container">
-					{winCount} : {lossCount}
-				</div>
-				<div className="match-position score-section-container" >2nd</div>
-			</div>
-		);
+		return {
+			winCount: winCount,
+			lossCount: lossCount,
+		};
 	}
 
 	function calculatePlayerStats() {
@@ -125,9 +123,9 @@ const MatchCard = (props) => {
 			}
 		}
 
-		let adr = Math.floor(((Math.random() * 50) + 80) * Math.round(
-			(kills / deaths) * 100
-		) / 100)
+		let adr = Math.floor(
+			((Math.random() * 50 + 80) * Math.round((kills / deaths) * 100)) / 100
+		);
 
 		if (deaths === 0) {
 			KDRatio = Math.round(kills);
@@ -135,7 +133,13 @@ const MatchCard = (props) => {
 			KDRatio = Math.round((kills / deaths) * 100) / 100;
 		}
 
-		return ({ kills: kills, deaths: deaths, assists: assists, KDRatio: KDRatio, adr: adr })
+		return {
+			kills: kills,
+			deaths: deaths,
+			assists: assists,
+			KDRatio: KDRatio,
+			adr: adr,
+		};
 	}
 
 	function sortAndCalculateTeamStats() {
@@ -156,9 +160,13 @@ const MatchCard = (props) => {
 					) {
 						if (players[i].stats.kills === undefined) {
 							players[i].stats.kills = roundResults[j].playerStats[k].kills;
-							players[i].stats.adr = Math.floor(((Math.random() * 50) + 80) * Math.round(
-								(players[i].stats.kills / players[i].stats.deaths) * 100
-							) / 100);
+							players[i].stats.adr = Math.floor(
+								((Math.random() * 50 + 80) *
+									Math.round(
+										(players[i].stats.kills / players[i].stats.deaths) * 100
+									)) /
+									100
+							);
 							players[i].stats.deaths = 0;
 							players[i].stats.assists = Math.floor(Math.random() * 100);
 							players[i].stats.KDA =
@@ -167,9 +175,13 @@ const MatchCard = (props) => {
 								) / 100;
 						} else {
 							players[i].stats.kills += roundResults[j].playerStats[k].kills;
-							players[i].stats.adr = Math.floor(((Math.random() * 50) + 80) * Math.round(
-								(players[i].stats.kills / players[i].stats.deaths) * 100
-							) / 100);
+							players[i].stats.adr = Math.floor(
+								((Math.random() * 50 + 80) *
+									Math.round(
+										(players[i].stats.kills / players[i].stats.deaths) * 100
+									)) /
+									100
+							);
 							players[i].stats.deaths += roundResults[j].playerStats[k].died
 								? 1
 								: 0;
@@ -234,11 +246,11 @@ const MatchCard = (props) => {
 	function findUserAgent() {
 		let i;
 		let players = props.matchData.players;
-		let user = props.currentPlayer
+		let user = props.currentPlayer;
 
 		for (i = 0; i < players.length; i++) {
 			if (players[i].playerID + "#" + players[i].tagLine === user) {
-				return (players[i].agent.toLowerCase())
+				return players[i].agent.toLowerCase();
 			}
 		}
 	}
@@ -246,11 +258,11 @@ const MatchCard = (props) => {
 	function findUser() {
 		let i;
 		let players = props.matchData.players;
-		let user = props.currentPlayer
+		let user = props.currentPlayer;
 
 		for (i = 0; i < players.length; i++) {
 			if (players[i].playerID + "#" + players[i].tagLine === user) {
-				return (players[i])
+				return players[i];
 			}
 		}
 	}
@@ -259,7 +271,13 @@ const MatchCard = (props) => {
 		if (dropDown) {
 			return (
 				<div className="match-card-drop-down-container" ref={dropDownRef}>
-					<button onClick={() => { console.log(props) }}>CLICK</button>
+					<button
+						onClick={() => {
+							console.log(props);
+						}}
+					>
+						CLICK
+					</button>
 					<div className="drop-down-chart-container">
 						<ResponsiveContainer width="100%" height={250}>
 							<LineChart
@@ -297,25 +315,28 @@ const MatchCard = (props) => {
 		}
 	}
 
-
 	function renderMatchCardColor() {
-		let user = findUser()
+		let user = findUser();
 
 		if (user.teamID === props.matchData.matchInfo.winningTeam) {
-			return ({ background: 'linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(144,255,172,1) 100%)' })
+			return {
+				background:
+					"linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(144,255,172,1) 100%)",
+			};
+		} else {
+			return {
+				background:
+					"linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,141,141,1) 100%)",
+			};
 		}
-
-		else {
-			return ({ background: 'linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,141,141,1) 100%)' })
-		}
-
-
 	}
 
-
-
 	return (
-		<div className="match-card-container" style={renderMatchCardColor()} ref={matchCardRef}>
+		<div
+			className="match-card-container"
+			style={renderMatchCardColor()}
+			ref={matchCardRef}
+		>
 			<div
 				className="match-card-wrapper"
 				onClick={() => {
@@ -328,16 +349,19 @@ const MatchCard = (props) => {
 				<div className="match-card-line line-4" ref={lineRef4}></div>
 
 				<div className="match-card-champion-icon-container">
-					<div className="match-card-champion-icon" style={AgentImage(findUserAgent())}></div>
+					<div
+						className="match-card-champion-icon"
+						style={AgentImage(findUserAgent())}
+					></div>
 				</div>
 				<div className="basic-match-info-container">
-					<div className="match-card-map-time-container">
+					<div className="match-card-map-time-container match-card-section">
 						<div className="match-card-map">
 							{props.matchData.matchInfo.mapID}
 						</div>
 						<div className="match-card-time">16 Hours Ago</div>
 					</div>
-					<div className="match-card-game-type-length">
+					<div className="match-card-game-type-length match-card-section">
 						<div className="match-card-type">
 							{props.matchData.matchInfo.gameMode}
 						</div>
@@ -347,13 +371,26 @@ const MatchCard = (props) => {
 					</div>
 				</div>
 
-				<div className="match-card-rank-container"></div>
+				<div className="match-card-rank-container match-card-section"></div>
 
-				<div className="match-score-position-container">
-					{calculateMatchResult()}
+				<div className="match-score-position-container match-card-section">
+					<div className="match-score-container">
+						<div className="match-score score-section-container">
+							{matchResult.winCount} : {matchResult.lossCount}
+						</div>
+						<div className="match-position score-section-container">2nd</div>
+					</div>
 				</div>
 
 				<div className="match-player-stats-container">
+					<div className="match-score-position-container-mobile match-card-section">
+						<div className="match-score-container">
+							<div className="match-score score-section-container">
+								{matchResult.winCount} : {matchResult.lossCount}
+							</div>
+							<div className="match-position score-section-container">2nd</div>
+						</div>
+					</div>
 					<div className="match-player-kda player-section-container">
 						<div>K/D/A</div>
 						<div>
