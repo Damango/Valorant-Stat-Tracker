@@ -8,7 +8,6 @@ import MatchData from "./Match Data/MatchData";
 // Match Generation function
 import generateMatches from "./GenerateMatchData/GenerateMatches";
 
-
 //Agent Image Handler
 import AgentImage from "./Components/AgentImage/AgentImage";
 
@@ -22,11 +21,11 @@ const ValorantTracker = (props) => {
 		losses: 0,
 		winRatio: 0,
 		KADRatio: 0.0,
-		mostPlayedAgent: ['...', 0],
-		secondMostPlayedAgent: ['...', 0],
+		mostPlayedAgent: ["...", 0],
+		secondMostPlayedAgent: ["...", 0],
 	});
 
-	console.log(historySummary.mostPlayedAgent[0])
+	console.log(historySummary.mostPlayedAgent[0]);
 	useEffect(() => {
 		let i;
 		let matchArray = [];
@@ -35,19 +34,13 @@ const ValorantTracker = (props) => {
 			matchArray.push(generateMatches());
 		}
 		setMatchData(matchArray);
-
-
-
 	}, []);
 
 	useEffect(() => {
 		if (matchData != undefined) {
 			calculateHistorySummary();
 		}
-
-	}, [matchData])
-
-
+	}, [matchData]);
 
 	function calculateHistorySummary() {
 		let summaryObject = {};
@@ -63,7 +56,6 @@ const ValorantTracker = (props) => {
 		summaryObject.KADRatio = KAD;
 
 		setHistorySummary(summaryObject);
-
 	}
 
 	function getCurrentPlayerStats() {
@@ -115,8 +107,6 @@ const ValorantTracker = (props) => {
 		summaryObject.winRatio = winRatio;
 		summaryObject.KADRatio = 2.0;
 
-
-
 		return { wins: wins, losses: losses, winRatio: winRatio, KADRatio: 2.0 };
 	}
 
@@ -158,7 +148,7 @@ const ValorantTracker = (props) => {
 		}
 
 		if (!secondMostPlayedAgent) {
-			secondMostPlayedAgent = ['...', 0];
+			secondMostPlayedAgent = ["...", 0];
 		}
 		return {
 			mostPlayedAgent: mostPlayedAgent,
@@ -186,7 +176,7 @@ const ValorantTracker = (props) => {
 			<div className="nav-bar-container">
 				<button
 					onClick={() => {
-						console.log(matchData)
+						console.log(matchData);
 					}}
 				>
 					View Match Data
@@ -230,9 +220,13 @@ const ValorantTracker = (props) => {
 							<span>FAVORITE AGENTS</span>
 
 							<div className="favorite-agent-container fav-agent-1">
-								<div className="fav-agent-icon" style={AgentImage(historySummary.mostPlayedAgent[0].toLowerCase())}></div>
+								<div
+									className="fav-agent-icon"
+									style={AgentImage(
+										historySummary.mostPlayedAgent[0].toLowerCase()
+									)}
+								></div>
 								<div className="fav-agent-stats-container">
-
 									<div className="fav-agent-name">
 										{historySummary.mostPlayedAgent[0]}
 									</div>
@@ -243,7 +237,12 @@ const ValorantTracker = (props) => {
 								<div className="fav-agent-win-rate">89% WR</div>
 							</div>
 							<div className="favorite-agent-container fav-agent-1">
-								<div className="fav-agent-icon" style={AgentImage(historySummary.secondMostPlayedAgent[0].toLowerCase())}></div>
+								<div
+									className="fav-agent-icon"
+									style={AgentImage(
+										historySummary.secondMostPlayedAgent[0].toLowerCase()
+									)}
+								></div>
 								<div className="fav-agent-stats-container">
 									<div className="fav-agent-name">
 										{historySummary.secondMostPlayedAgent[0]}
@@ -290,13 +289,15 @@ const ValorantTracker = (props) => {
 								</div>
 							</div>
 							<div className="match-history-card-list-container">
-								{(matchData != undefined ? matchData.map((match, index) => (
-									<MatchCard
-										matchData={match}
-										index={index}
-										currentPlayer={currentPlayer}
-									/>
-								)) : 'nothing')}
+								{matchData != undefined
+									? matchData.map((match, index) => (
+											<MatchCard
+												matchData={match}
+												index={index}
+												currentPlayer={currentPlayer}
+											/>
+									  ))
+									: "nothing"}
 							</div>
 						</div>
 					</div>
