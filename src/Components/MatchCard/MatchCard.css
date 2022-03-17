@@ -122,15 +122,31 @@
 
 .match-player-stats-container {
 	position: relative;
-	width: 40%;
+	width: 60%;
 
 	display: flex;
-	margin-left: 50px;
+	flex-direction: row;
 	justify-content: space-between;
 }
 
+.match-score-position-container {
+}
+
+.score-section-container {
+	text-align: center;
+}
+
+.player-stats-wrapper {
+	display: flex;
+	width: 80%;
+	justify-content: space-between;
+}
+
+.player-section-container {
+	display: inline-block;
+}
+
 .match-player-kda {
-	text-align: right;
 }
 
 .match-card-drop-down-container {
@@ -159,20 +175,14 @@
 	width: 100%;
 }
 
-.match-score-position-container-mobile {
-	display: none;
-}
-
 @media only screen and (max-width: 1450px) {
+	.match-card-container {
+		width: 95%;
+	}
 	.match-card-container {
 	}
 
 	.player-section-container {
-	}
-
-	.score-section-container {
-		text-align: center;
-		width: 50px;
 	}
 }
 
@@ -182,7 +192,7 @@
 	}
 
 	.match-card-wrapper {
-		height: 85px;
+		height: 125px;
 	}
 
 	.match-card-champion-icon-container {
@@ -194,31 +204,55 @@
 	}
 
 	.match-card-champion-icon {
-		width: 30px;
-		height: 30px;
+		width: 40px;
+		height: 40px;
 	}
 
 	.basic-match-info-container {
 		position: relative;
 
-		width: 200px;
+		width: 180px;
+	}
+
+	.player-stats-wrapper {
+		position: relative;
+		display: flex;
+		width: 230px;
+		justify-content: space-between;
+
+		align-items: center;
+	}
+
+	.match-player-stats-container {
+		position: relative;
+		right: -20px;
+		display: grid;
+
+		height: 100%;
+	}
+
+	.match-score-container {
+		font-size: 14px;
+
+		display: inline-block;
+		float: right;
 	}
 
 	.match-card-map {
-		font-size: 12px;
+		font-size: 14px;
 		width: 40px;
 	}
 
 	.match-card-type {
-		font-size: 12px;
+		font-size: 14px;
 	}
 
 	.match-card-time {
-		font-size: 12px;
+		font-size: 14px;
 	}
 
 	.match-card-length {
-		font-size: 12px;
+		font-size: 14px;
 	}
 
 	.match-card-section {
@@ -228,46 +262,17 @@
 		display: none;
 	}
 
-	.match-score-position-container {
-		display: none;
-	}
-
-	.match-score-position-container-mobile {
-		position: absolute;
-		top: 0px;
-		right: 0px;
-		display: inline-block;
-		font-size: 12px;
-	}
-
 	.match-player-stats-container {
-		height: 100%;
-		width: 200px !important;
-		display: flex;
-		margin-left: -30px !important;
-		grid-template-columns: 25% 25% 25% 25%;
-		background-color: red;
-	}
-
-	.match-player-stats-container .player-section-container {
-		position: relative;
-		top: 30px;
 	}
 
 	.match-player-hs-percent {
-		display: none;
 	}
 
 	.match-player-acs {
 		display: none;
 	}
 
-	.match-score-position-container {
-		position: relative;
-		left: -40px;
-	}
-
 	.player-section-container {
-		font-size: 12px;
+		font-size: 14px;
 	}
 }

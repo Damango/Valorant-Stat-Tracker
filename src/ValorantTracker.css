@@ -25,15 +25,18 @@
 
 .profile-summary-container {
 	margin-right: 0px;
-	
 
 	padding: 10px;
 	box-sizing: border-box;
 }
 
 .profile-rank-and-details-container {
+	position: relative;
 	background-color: white;
 	box-shadow: 0px 5px 6px 1px rgba(0, 0, 0, 0.137);
+	opacity: 0;
+	top: 30px;
+	transition: all 0.42s;
 }
 
 .profile-icon-name-container {
@@ -165,11 +168,16 @@
 }
 
 .favorite-agents-container {
+	position: relative;
+	opacity: 0;
+	top: 30px;
 	margin-top: 20px;
 	background-color: white;
 	box-sizing: border-box;
 	padding: 20px;
 	box-shadow: 0px 5px 6px 1px rgba(0, 0, 0, 0.137);
+	transition: all 0.42s;
+	transition-delay: 0.15s;
 }
 
 .favorite-agent-container {
@@ -180,14 +188,13 @@
 	padding: 10px;
 	display: flex;
 	align-items: center;
-	font-family: 'Open Sans';
+	font-family: "Open Sans";
 }
 
 .fav-agent-match-count {
 }
 
 .fav-agent-icon {
-	
 	background-size: cover;
 	background-position: center;
 	width: 50px;
@@ -201,9 +208,9 @@
 	margin-right: 50px;
 }
 
-.fav-agent-win-rate{
+.fav-agent-win-rate {
 	position: absolute;
-right: 10px;
+	right: 10px;
 }
 
 .match-history-container {
@@ -289,108 +296,96 @@ right: 10px;
 	flex-direction: column;
 }
 
-
-
 @media only screen and (max-width: 850px) {
-
-
 	.main-view-wrapper {
 		position: relative;
 		width: 99%;
 		left: 50%;
 		transform: translateX(-50%);
-	
+
 		display: grid;
-		grid-template-columns:100%;
-	
+		grid-template-columns: 100%;
+
 		padding: 10px;
 	}
-	
-
-
 }
 
-
 @media only screen and (max-width: 600px) {
-
-	.profile-icon-name-container{
+	.profile-icon-name-container {
 		height: 220px;
-		
 	}
 
-	.profile-rank-and-details-container{
-	
+	.favorite-agents-container {
+		top: 50px;
 	}
 
-	.account-ranks-container{
+	.profile-rank-and-details-container {
+		top: 50px;
+	}
+
+	.account-ranks-container {
 		margin-top: 20px;
 	}
 
-	.account-current-rank-container{
-		
-		
+	.account-current-rank-container {
 	}
 
-.profile-icon-container{
-	width: 125px;
-	height: 125px;
-}
+	.profile-icon-container {
+		width: 125px;
+		height: 125px;
+	}
 
-.account-current-rank-container{
-	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
-	
-	width: 60%;
-}
+	.account-current-rank-container {
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
 
+		width: 60%;
+	}
 
-.current-rank-image-container {
-	width: 80px;
-}
+	.current-rank-image-container {
+		width: 80px;
+	}
 
-.current-rank-image {
-	position: relative;
-	width: 80px;
-	height: 50px;
-	background: url("./media/immortalicon.png");
-	background-position: center center;
-	background-size: cover;
-	display: inline-block;
-	left: 50%;
-	transform: translateX(-50%);
-}
-.current-rank-name-text{
-	font-size: 19px;
-}
-.peak-rank-image-container {
-	width: 80px;
-}
+	.current-rank-image {
+		position: relative;
+		width: 80px;
+		height: 50px;
+		background: url("./media/immortalicon.png");
+		background-position: center center;
+		background-size: cover;
+		display: inline-block;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	.current-rank-name-text {
+		font-size: 19px;
+	}
+	.peak-rank-image-container {
+		width: 80px;
+	}
 
-.peak-rank-image {
-	position: relative;
-	width: 60px;
-	height: 60px;
-	background: url("./media/raidanticon.png");
-	background-position: center center;
-	background-size: cover;
-	display: inline-block;
-	left: 50%;
-	transform: translateX(-50%);
-}
+	.peak-rank-image {
+		position: relative;
+		width: 60px;
+		height: 60px;
+		background: url("./media/raidanticon.png");
+		background-position: center center;
+		background-size: cover;
+		display: inline-block;
+		left: 50%;
+		transform: translateX(-50%);
+	}
 
-.account-peak-rank-container{
-	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
-	
-	width: 60%;
-}
+	.account-peak-rank-container {
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
 
-.peak-rank-name-text{
+		width: 60%;
+	}
 
-	font-size: 16px;
-
-}
-
+	.peak-rank-name-text {
+		font-size: 16px;
+	}
 }

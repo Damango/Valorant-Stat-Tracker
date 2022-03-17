@@ -21,14 +21,16 @@ const ValorantTracker = (props) => {
 		losses: 0,
 		winRatio: 0,
 		KADRatio: 0.0,
-		mostPlayedAgent: ["...", 0],
-		secondMostPlayedAgent: ["...", 0],
+		mostPlayedAgent: ["...", 152],
+		secondMostPlayedAgent: ["...", 125],
 	});
 
-	console.log(historySummary.mostPlayedAgent[0]);
 	useEffect(() => {
 		let i;
 		let matchArray = [];
+		animateRankDetails();
+
+		animateFavoriteAgent();
 
 		for (i = 0; i < 20; i++) {
 			matchArray.push(generateMatches());
@@ -39,6 +41,7 @@ const ValorantTracker = (props) => {
 	useEffect(() => {
 		if (matchData != undefined) {
 			calculateHistorySummary();
+			animateNumbers(1000);
 		}
 	}, [matchData]);
 
@@ -139,7 +142,10 @@ const ValorantTracker = (props) => {
 				if (!mostPlayedAgent) {
 					mostPlayedAgent = currentAgent;
 				} else {
-					if (mostPlayedAgent[1] < currentAgent[1]) {
+					if (
+						mostPlayedAgent[1] < currentAgent[1] ||
+						mostPlayedAgent[1] === currentAgent[1]
+					) {
 						secondMostPlayedAgent = mostPlayedAgent;
 						mostPlayedAgent = currentAgent;
 					}
@@ -171,15 +177,46 @@ const ValorantTracker = (props) => {
 		}
 	}
 
+	function animateRankDetails() {
+		let container = document.querySelector(
+			".profile-rank-and-details-container"
+		);
+		container.style.opacity = 1;
+		container.style.top = "0px";
+	}
+
+	function animateFavoriteAgent() {
+		let container = document.querySelector(".favorite-agents-container");
+		container.style.opacity = 1;
+		container.style.top = "0px";
+	}
+
+	function animateNumbers(duration) {
+		let startTimestamp = null;
+		let playerLevel = getCurrentPlayerStats().playerLevel;
+		let playerLevelElement = document.querySelector(".profile-level-container");
+		const step = (timestamp) => {
+			if (!startTimestamp) startTimestamp = timestamp;
+			const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+			playerLevelElement.innerHTML = Math.floor(
+				progress * (playerLevel - 0) + 0
+			);
+			if (progress < 1) {
+				window.requestAnimationFrame(step);
+			}
+		};
+		window.requestAnimationFrame(step);
+	}
+
 	return (
 		<div className="valorant-tracker-container">
 			<div className="nav-bar-container">
 				<button
 					onClick={() => {
-						console.log(matchData);
+						console.log(getCurrentPlayerStats());
 					}}
 				>
-					View Match Data
+					CLICK
 				</button>
 			</div>
 
@@ -190,7 +227,7 @@ const ValorantTracker = (props) => {
 						<div className="profile-rank-and-details-container">
 							<div className="profile-icon-name-container">
 								<div className="profile-icon-container">
-									<div className="profile-level-container">287</div>
+									<div className="profile-level-container">0</div>
 								</div>
 								<div className="profile-name-container">BUSTERS#Zyzz</div>
 							</div>

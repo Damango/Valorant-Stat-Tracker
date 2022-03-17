@@ -51,7 +51,7 @@ function generateRandomPlayer(team) {
 		partyID: "test",
 		agent: agents[Math.floor(Math.random() * agents.length)],
 		compRank: "Immortal II",
-		playerLevel: Math.floor(Math.random() * 500),
+		playerLevel: Math.floor(Math.random() * 400) + 100,
 		stats: [],
 	};
 
@@ -105,7 +105,7 @@ function generateRoundResults(roundIndex) {
 		},
 	});
 	let i;
-	for (i = 0; i < 10; i++) { }
+	for (i = 0; i < 10; i++) {}
 	let roundResultObject = {
 		roundNum: roundIndex,
 		roundResult: "defuse",
@@ -129,21 +129,15 @@ function generateMatch() {
 
 		if (redWins === 13 || blueWins === 13) {
 			break;
-		}
-
-		else {
-
-
-			if (roundResult.winningTeam === 'blue') {
+		} else {
+			if (roundResult.winningTeam === "blue") {
 				blueWins += 1;
-			}
-			else {
+			} else {
 				redWins += 1;
 			}
-			console.log(roundResult)
+			console.log(roundResult);
 			roundResults.push(roundResult);
 		}
-
 	}
 
 	for (i = 0; i < 9; i++) {
@@ -151,8 +145,7 @@ function generateMatch() {
 
 		if (i > 4) {
 			player = generateRandomPlayer("blue");
-		}
-		else {
+		} else {
 			player = generateRandomPlayer("red");
 		}
 
@@ -162,11 +155,11 @@ function generateMatch() {
 	players.push({
 		playerID: "Busters",
 		tagLine: "zyzz",
-		teamID: 'blue',
+		teamID: "blue",
 		partyID: "test",
 		agent: agents[Math.floor(Math.random() * agents.length)],
 		compRank: "Immortal II",
-		playerLevel: Math.floor(Math.random() * 500),
+		playerLevel: Math.floor(Math.random() * 400) + 100,
 		stats: [],
 	});
 
@@ -193,7 +186,7 @@ function generateMatch() {
 	return matchObject;
 }
 
-function generatePlayerHistory() { }
+function generatePlayerHistory() {}
 
 function addMatch() {
 	//let matchHistory = props.matchData;

@@ -38,22 +38,7 @@ const MatchCard = (props) => {
 	});
 
 	useEffect(() => {
-		let line1 = lineRef1.current;
-		let line2 = lineRef2.current;
-		let line3 = lineRef3.current;
-		let line4 = lineRef4.current;
-
-		matchCardRef.current.style.opacity = 1;
-
-		line1.style.transitionDelay = generateRandomDelay();
-		line2.style.transitionDelay = generateRandomDelay();
-		line3.style.transitionDelay = generateRandomDelay();
-		line4.style.transitionDelay = generateRandomDelay();
-
-		line1.style.width = "100%";
-		line2.style.height = "100%";
-		line3.style.width = "100%";
-		line4.style.height = "100%";
+		animateLines();
 
 		setPlayerObject(calculatePlayerStats());
 
@@ -204,16 +189,11 @@ const MatchCard = (props) => {
 			}
 		}
 
-		//console.log(blueTeam);
-
-		console.log("running");
-
 		return { redTeam: redTeam, blueTeam: blueTeam };
 	}
 
 	function generateRandomDelay() {
 		let theRandomNumber = Math.random() * 0.5;
-
 		return theRandomNumber + props.index / 3 + "s";
 	}
 
@@ -231,6 +211,25 @@ const MatchCard = (props) => {
 				animateDropDown(true);
 			}, 1);
 		}
+	}
+
+	function animateLines() {
+		let line1 = lineRef1.current;
+		let line2 = lineRef2.current;
+		let line3 = lineRef3.current;
+		let line4 = lineRef4.current;
+
+		matchCardRef.current.style.opacity = 1;
+
+		line1.style.transitionDelay = generateRandomDelay();
+		line2.style.transitionDelay = generateRandomDelay();
+		line3.style.transitionDelay = generateRandomDelay();
+		line4.style.transitionDelay = generateRandomDelay();
+
+		line1.style.width = "100%";
+		line2.style.height = "100%";
+		line3.style.width = "100%";
+		line4.style.height = "100%";
 	}
 
 	function animateDropDown(dropDown) {
@@ -271,13 +270,6 @@ const MatchCard = (props) => {
 		if (dropDown) {
 			return (
 				<div className="match-card-drop-down-container" ref={dropDownRef}>
-					<button
-						onClick={() => {
-							console.log(props);
-						}}
-					>
-						CLICK
-					</button>
 					<div className="drop-down-chart-container">
 						<ResponsiveContainer width="100%" height={250}>
 							<LineChart
@@ -373,17 +365,8 @@ const MatchCard = (props) => {
 
 				<div className="match-card-rank-container match-card-section"></div>
 
-				<div className="match-score-position-container match-card-section">
-					<div className="match-score-container">
-						<div className="match-score score-section-container">
-							{matchResult.winCount} : {matchResult.lossCount}
-						</div>
-						<div className="match-position score-section-container">2nd</div>
-					</div>
-				</div>
-
 				<div className="match-player-stats-container">
-					<div className="match-score-position-container-mobile match-card-section">
+					<div className="match-score-position-container match-card-section">
 						<div className="match-score-container">
 							<div className="match-score score-section-container">
 								{matchResult.winCount} : {matchResult.lossCount}
@@ -391,27 +374,30 @@ const MatchCard = (props) => {
 							<div className="match-position score-section-container">2nd</div>
 						</div>
 					</div>
-					<div className="match-player-kda player-section-container">
-						<div>K/D/A</div>
-						<div>
-							{playerObject.kills}/{playerObject.deaths}/{playerObject.assists}
+					<div className="player-stats-wrapper">
+						<div className="match-player-kda player-section-container">
+							<div>K/D/A</div>
+							<div>
+								{playerObject.kills}/{playerObject.deaths}/
+								{playerObject.assists}
+							</div>
 						</div>
-					</div>
-					<div className="match-player-kd player-section-container">
-						<div>K/D</div>
-						<div>{playerObject.KDRatio}</div>
-					</div>
-					<div className="match-player-hs-percent player-section-container">
-						<div>HS%</div>
-						<div>25%</div>
-					</div>
-					<div className="match-player-adr player-section-container">
-						<div>ADR</div>
-						<div>{playerObject.adr}</div>
-					</div>
-					<div className="match-player-acs player-section-container">
-						<div>ACS</div>
-						<div>238</div>
+						<div className="match-player-kd player-section-container">
+							<div>K/D</div>
+							<div>{playerObject.KDRatio}</div>
+						</div>
+						<div className="match-player-hs-percent player-section-container">
+							<div>HS%</div>
+							<div>25%</div>
+						</div>
+						<div className="match-player-adr player-section-container">
+							<div>ADR</div>
+							<div>{playerObject.adr}</div>
+						</div>
+						<div className="match-player-acs player-section-container">
+							<div>ACS</div>
+							<div>238</div>
+						</div>
 					</div>
 				</div>
 			</div>
