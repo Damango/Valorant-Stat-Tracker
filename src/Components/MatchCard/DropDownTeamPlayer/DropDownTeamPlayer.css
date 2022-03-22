@@ -1,8 +1,5 @@
 .drop-down-player-container {
 	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: space-evenly;
 
 	width: 100%;
 	margin-bottom: 2px;
@@ -13,23 +10,55 @@
 
 .drop-down-player-agent-name-container {
 	position: relative;
-	width: 200px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 220px;
 	display: flex;
+	padding-left: 15px;
 	align-items: center;
 }
 
 .drop-down-team-player-name {
 	display: inline-block;
 }
+.drop-down-team-player-name:hover .player-name-hover-box {
+	display: inline-block;
+}
+.player-name-hover-box:hover {
+	display: inline-block;
+}
+.player-name-hover-box {
+	position: absolute;
+	top: -30px;
+	background-color: white;
+	box-shadow: 0px 0px 2px 2px black;
+	display: none;
+	padding: 5px;
+}
 
 .drop-down-team-agent-icon {
 	position: relative;
-	left: -20px;
+	margin-right: 10px;
+	top: 5px;
 	width: 40px;
 	height: 40px;
 
 	display: inline-block;
 	background-size: cover;
+}
+
+.team-player-stats-container {
+	position: absolute;
+	right: 0px;
+	top: 50%;
+	transform: translateY(-50%);
+	padding-right: 15px;
+	display: inline-block;
+	width: 70%;
+	height: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .drop-down-team-header {
@@ -48,8 +77,19 @@
 	font-family: "Inter";
 }
 
-
-.drop-down-player-section{
+.drop-down-player-section {
 	text-align: center;
 	width: 30px;
+}
+
+@media only screen and (max-width: 760px) {
+	.drop-down-player-agent-name-container {
+		position: relative;
+		width: 200px;
+		display: flex;
+		align-items: center;
+	}
+}
+
+@media only screen and (max-width: 600px) {
 }

@@ -169,6 +169,8 @@
 
 .favorite-agents-container {
 	position: relative;
+	font-family: "Inter";
+	font-weight: bold;
 	opacity: 0;
 	top: 30px;
 	margin-top: 20px;

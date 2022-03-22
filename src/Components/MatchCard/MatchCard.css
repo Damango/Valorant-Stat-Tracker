@@ -7,6 +7,10 @@
 	transform: translateX(-50%);
 	margin-bottom: 20px;
 	opacity: 0;
+	font-family: "Cairo";
+	color: #2f3640;
+	font-weight: bold;
+
 	transition: 0.3s;
 }
 
@@ -63,9 +67,8 @@
 }
 
 .match-card-wrapper:hover {
-	top: -5px;
 	cursor: pointer;
-	box-shadow: 0px 0px 2px 2px rgb(180, 180, 180);
+	box-shadow: 0px 0px 3px 3px rgb(97, 97, 97);
 }
 
 .match-card-champion-icon-container {
@@ -86,7 +89,10 @@
 }
 
 .basic-match-info-container {
-	width: 180px;
+	width: 450px;
+
+	display: flex;
+	align-items: center;
 }
 
 .match-card-map-time-container {
@@ -101,6 +107,10 @@
 	display: inline-block;
 }
 
+.match-card-type-mobile {
+	display: none;
+}
+
 .match-card-game-type-length {
 }
 .match-card-type {
@@ -112,12 +122,18 @@
 	display: inline-block;
 }
 
+.rank-score-position-wrapper {
+	display: flex;
+}
+
 .match-card-rank-container {
 	background: url("../../media/immortalicon.png");
 	width: 85px;
 	height: 85px;
 	background-size: cover;
 	background-position: center;
+
+	display: inline-block;
 }
 
 .match-player-stats-container {
@@ -130,6 +146,16 @@
 }
 
 .match-score-position-container {
+	position: relative;
+
+	display: inline-block;
+	width: 50px;
+}
+
+.match-score-container {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .score-section-container {
@@ -137,9 +163,12 @@
 }
 
 .player-stats-wrapper {
+	position: relative;
 	display: flex;
-	width: 80%;
+	width: 50%;
 	justify-content: space-between;
+
+	margin-left: 40px;
 }
 
 .player-section-container {
@@ -179,6 +208,14 @@
 	.match-card-container {
 		width: 95%;
 	}
+
+	.match-card-map-time-container {
+		width: 160px;
+		margin-right: 10px;
+	}
+
+	.match-card-game-type-length {
+	}
 	.match-card-container {
 	}
 
@@ -192,7 +229,11 @@
 	}
 
 	.match-card-wrapper {
+		position: relative;
 		height: 125px;
+		padding: 10px;
+		display: grid;
+		grid-template-rows: 50% 50%;
 	}
 
 	.match-card-champion-icon-container {
@@ -210,22 +251,37 @@
 
 	.basic-match-info-container {
 		position: relative;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		height: 50px;
+	}
 
-		width: 180px;
+	.match-card-map-time-container {
+		width: 100px;
+	}
+
+	.match-card-game-type-length {
 	}
 
 	.player-stats-wrapper {
 		position: relative;
-		display: flex;
-		width: 230px;
+
+		width: 95%;
+
+		left: 50%;
+		transform: translateX(-50%);
+
 		justify-content: space-between;
 
+		margin-left: 0px;
 		align-items: center;
+		bottom: -5px;
 	}
 
 	.match-player-stats-container {
 		position: relative;
-		right: -20px;
+
 		display: grid;
 
 		height: 100%;
@@ -233,9 +289,10 @@
 
 	.match-score-container {
 		font-size: 14px;
+		width: 100%;
+		text-align: center;
 
 		display: inline-block;
-		float: right;
 	}
 
 	.match-card-map {
@@ -247,7 +304,17 @@
 		font-size: 14px;
 	}
 
+	.match-card-type {
+		display: none;
+	}
+
 	.match-card-time {
+		font-size: 14px;
+		display: none;
+	}
+
+	.match-card-type-mobile {
+		display: inline-block;
 		font-size: 14px;
 	}
 
@@ -255,11 +322,21 @@
 		font-size: 14px;
 	}
 
+	.rank-score-position-wrapper {
+		position: relative;
+
+		height: 100%;
+	}
+
 	.match-card-section {
 	}
 
 	.match-card-rank-container {
-		display: none;
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 40px;
+		height: 40px;
 	}
 
 	.match-player-stats-container {

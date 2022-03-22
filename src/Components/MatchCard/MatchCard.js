@@ -340,18 +340,21 @@ const MatchCard = (props) => {
 				<div className="match-card-line line-3" ref={lineRef3}></div>
 				<div className="match-card-line line-4" ref={lineRef4}></div>
 
-				<div className="match-card-champion-icon-container">
-					<div
-						className="match-card-champion-icon"
-						style={AgentImage(findUserAgent())}
-					></div>
-				</div>
 				<div className="basic-match-info-container">
+					<div className="match-card-champion-icon-container">
+						<div
+							className="match-card-champion-icon"
+							style={AgentImage(findUserAgent())}
+						></div>
+					</div>
 					<div className="match-card-map-time-container match-card-section">
 						<div className="match-card-map">
 							{props.matchData.matchInfo.mapID}
 						</div>
 						<div className="match-card-time">16 Hours Ago</div>
+						<div className="match-card-type-mobile">
+							{props.matchData.matchInfo.gameMode}
+						</div>
 					</div>
 					<div className="match-card-game-type-length match-card-section">
 						<div className="match-card-type">
@@ -361,43 +364,44 @@ const MatchCard = (props) => {
 							{props.matchData.matchInfo.gameLength}
 						</div>
 					</div>
-				</div>
 
-				<div className="match-card-rank-container match-card-section"></div>
-
-				<div className="match-player-stats-container">
-					<div className="match-score-position-container match-card-section">
-						<div className="match-score-container">
-							<div className="match-score score-section-container">
-								{matchResult.winCount} : {matchResult.lossCount}
+					<div className="rank-score-position-wrapper">
+						<div className="match-card-rank-container match-card-section"></div>
+						<div className="match-score-position-container match-card-section">
+							<div className="match-score-container">
+								<div className="match-score score-section-container">
+									{matchResult.winCount} : {matchResult.lossCount}
+								</div>
+								<div className="match-position score-section-container">
+									2nd
+								</div>
 							</div>
-							<div className="match-position score-section-container">2nd</div>
 						</div>
 					</div>
-					<div className="player-stats-wrapper">
-						<div className="match-player-kda player-section-container">
-							<div>K/D/A</div>
-							<div>
-								{playerObject.kills}/{playerObject.deaths}/
-								{playerObject.assists}
-							</div>
+				</div>
+
+				<div className="player-stats-wrapper">
+					<div className="match-player-kda player-section-container">
+						<div>K/D/A</div>
+						<div>
+							{playerObject.kills}/{playerObject.deaths}/{playerObject.assists}
 						</div>
-						<div className="match-player-kd player-section-container">
-							<div>K/D</div>
-							<div>{playerObject.KDRatio}</div>
-						</div>
-						<div className="match-player-hs-percent player-section-container">
-							<div>HS%</div>
-							<div>25%</div>
-						</div>
-						<div className="match-player-adr player-section-container">
-							<div>ADR</div>
-							<div>{playerObject.adr}</div>
-						</div>
-						<div className="match-player-acs player-section-container">
-							<div>ACS</div>
-							<div>238</div>
-						</div>
+					</div>
+					<div className="match-player-kd player-section-container">
+						<div>K/D</div>
+						<div>{playerObject.KDRatio}</div>
+					</div>
+					<div className="match-player-hs-percent player-section-container">
+						<div>HS%</div>
+						<div>25%</div>
+					</div>
+					<div className="match-player-adr player-section-container">
+						<div>ADR</div>
+						<div>{playerObject.adr}</div>
+					</div>
+					<div className="match-player-acs player-section-container">
+						<div>ACS</div>
+						<div>238</div>
 					</div>
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./DropDownTeamPlayer.css";
 import SovaIcon from "../../../media/sovaicon.webp";
 import JettIcon from "../../../media/jetticon.webp";
@@ -19,9 +19,21 @@ import KilljoyIcon from "../../../media/killjoyicon.webp";
 import SkyeIcon from "../../../media/skyeicon.webp";
 import RazeIcon from "../../../media/razeicon.webp";
 
-import AgentImage from "../../AgentImage/AgentImage"
+import AgentImage from "../../AgentImage/AgentImage";
 
 const DropDownTeamPlayer = (props) => {
+	const [playerID, setPlayerID] = useState(props.player.playerID);
+
+	useEffect(() => {
+		let theID = playerID;
+		if (theID.length > 10) {
+			console.log(playerID);
+			theID = theID.substring(0, 10);
+			console.log(playerID);
+			theID += "...";
+			setPlayerID(theID);
+		}
+	}, []);
 
 	return (
 		<div className="drop-down-player-container">
@@ -33,21 +45,38 @@ const DropDownTeamPlayer = (props) => {
 					></div>
 				</div>
 				<div className="drop-down-team-player-name">
-					{props.player.playerID} #{props.player.tagLine}
+					<div className="player-name-hover-box">
+						{props.player.playerID} #{props.player.tagLine}
+					</div>
+					{playerID} #{props.player.tagLine}
 				</div>
 			</div>
 
-			<div className="drop-down-team-player-rank-container">
-				<div className="drop-down-team-player-rank">PLAT</div>
+			<div className="team-player-stats-container">
+				<div className="drop-down-team-player-rank-container">
+					<div className="drop-down-team-player-rank">PLAT</div>
+				</div>
+				<div className="drop-down-team-acs drop-down-player-section">300</div>
+				<div className="drop-down-team-kills drop-down-player-section">
+					{props.player.stats.kills}
+				</div>
+				<div className="drop-down-team-deaths drop-down-player-section">
+					{props.player.stats.deaths}
+				</div>
+				<div className="drop-down-team-assists drop-down-player-section">
+					{props.player.stats.assists}
+				</div>
+				<div className="drop-down-team-kd drop-down-player-section">
+					{props.player.stats.KDA}
+				</div>
+				<div className="drop-down-team-adr drop-down-player-section">
+					{props.player.stats.adr}
+				</div>
+				<div className="drop-down-team-hs-percent drop-down-player-section">
+					25%
+				</div>
+				<div className="drop-down-team-econ drop-down-player-section">98</div>
 			</div>
-			<div className="drop-down-team-acs drop-down-player-section">300</div>
-			<div className="drop-down-team-kills drop-down-player-section">{props.player.stats.kills}</div>
-			<div className="drop-down-team-deaths drop-down-player-section">{props.player.stats.deaths}</div>
-			<div className="drop-down-team-assists drop-down-player-section">{props.player.stats.assists}</div>
-			<div className="drop-down-team-kd drop-down-player-section">{props.player.stats.KDA}</div>
-			<div className="drop-down-team-adr drop-down-player-section">{props.player.stats.adr}</div>
-			<div className="drop-down-team-hs-percent drop-down-player-section">25%</div>
-			<div className="drop-down-team-econ drop-down-player-section">98</div>
 		</div>
 	);
 };
