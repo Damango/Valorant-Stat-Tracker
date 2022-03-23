@@ -190,20 +190,30 @@
 
 .drop-down-team-header {
 	position: relative;
+
+	display: flex;
+}
+
+.team-side {
+	display: inline-block;
+	width: 260px;
 }
 
 .team-player-stats-container-header {
-	position: absolute;
+	position: relative;
 
-	right: 0px;
-	top: 0px;
-	padding-right: 20px;
+	padding-right: 15px;
 	display: inline-block;
-	width: 70%;
+	width: 90%;
 	height: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.team-player-stats-container-header div {
+	width: 50px;
+	text-align: center;
 }
 
 .drop-down-chart-container {
@@ -214,7 +224,7 @@
 	width: 98% !important;
 }
 
-.drop-down-team {
+.drop-down-team-container {
 	position: relative;
 
 	display: flex;
@@ -282,9 +292,13 @@
 	.match-card-game-type-length {
 	}
 
+	.team-side {
+		display: inline-block;
+		width: 250px;
+	}
+
 	.player-stats-wrapper {
 		position: relative;
-
 		width: 95%;
 
 		left: 50%;
@@ -382,5 +396,19 @@
 
 	.player-section-container {
 		font-size: 14px;
+	}
+
+	.drop-down-team-container {
+		position: relative;
+
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		overflow-x: scroll;
+	}
+	.drop-down-team-header {
+		position: relative;
+		width: 980px;
+		display: flex;
 	}
 }

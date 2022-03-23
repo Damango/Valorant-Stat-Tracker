@@ -53,9 +53,7 @@ const DropDownTeamPlayer = (props) => {
 			</div>
 
 			<div className="team-player-stats-container">
-				<div className="drop-down-team-player-rank-container">
-					<div className="drop-down-team-player-rank">PLAT</div>
-				</div>
+				<div className="drop-down-team-player-rank-container">PLAT</div>
 				<div className="drop-down-team-acs drop-down-player-section">300</div>
 				<div className="drop-down-team-kills drop-down-player-section">
 					{props.player.stats.kills}

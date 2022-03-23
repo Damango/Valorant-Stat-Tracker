@@ -6,13 +6,19 @@
 	height: 75px;
 
 	border: 1px solid rgba(128, 128, 128, 0.308);
+	display: flex;
+}
+
+.team-player-stats-container div {
+	width: 50px;
+	text-align: center;
 }
 
 .drop-down-player-agent-name-container {
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
-	width: 220px;
+	width: 250px;
 	display: flex;
 	padding-left: 15px;
 	align-items: center;
@@ -48,18 +54,21 @@
 }
 
 .team-player-stats-container {
-	position: absolute;
+	position: relative;
 
-	right: 0px;
 	top: 50%;
 	transform: translateY(-50%);
 	padding-right: 15px;
 	display: inline-block;
-	width: 70%;
+	width: 90%;
 	height: 50px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	overflow: hidden;
+}
+
+.team-player-stats-container div {
 }
 
 .drop-down-team-header {
@@ -86,11 +95,14 @@
 @media only screen and (max-width: 760px) {
 	.drop-down-player-agent-name-container {
 		position: relative;
-		width: 200px;
+		width: 240px;
 		display: flex;
 		align-items: center;
 	}
 }
 
 @media only screen and (max-width: 600px) {
+	.drop-down-player-container {
+		width: 1000px;
+	}
 }

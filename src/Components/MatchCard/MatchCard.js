@@ -285,9 +285,10 @@ const MatchCard = (props) => {
 						</ResponsiveContainer>
 					</div>
 					<div className="drop-down-teams-container">
-						<div className="drop-down-team-a drop-down-team">
+						<div className="drop-down-team-a drop-down-team-container">
 							<div className="drop-down-team-header team-blue">
-								TEAM BLUE
+								<div className="team-side">TEAM BLUE</div>
+
 								<div className="team-player-stats-container-header">
 									<div className="drop-down-team-player-rank-container">
 										<div className="drop-down-team-player-rank">RANK</div>
@@ -322,9 +323,9 @@ const MatchCard = (props) => {
 								<DropDownTeamPlayer player={player} index={index} />
 							))}
 						</div>
-						<div className="drop-down-team-b drop-down-team">
+						<div className="drop-down-team-b drop-down-team-container">
 							<div className="drop-down-team-header team-red">
-								TEAM RED
+								<div className="team-side">TEAM RED</div>
 								<div className="team-player-stats-container-header">
 									<div className="drop-down-team-player-rank-container">
 										<div className="drop-down-team-player-rank">RANK</div>
