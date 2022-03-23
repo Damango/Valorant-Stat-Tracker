@@ -286,13 +286,75 @@ const MatchCard = (props) => {
 					</div>
 					<div className="drop-down-teams-container">
 						<div className="drop-down-team-a drop-down-team">
-							<div className="drop-down-team-header team-blue">TEAM BLUE</div>
+							<div className="drop-down-team-header team-blue">
+								TEAM BLUE
+								<div className="team-player-stats-container-header">
+									<div className="drop-down-team-player-rank-container">
+										<div className="drop-down-team-player-rank">RANK</div>
+									</div>
+									<div className="drop-down-team-acs drop-down-player-section">
+										ACS
+									</div>
+									<div className="drop-down-team-kills drop-down-player-section">
+										K
+									</div>
+									<div className="drop-down-team-deaths drop-down-player-section">
+										D
+									</div>
+									<div className="drop-down-team-assists drop-down-player-section">
+										A
+									</div>
+									<div className="drop-down-team-kd drop-down-player-section">
+										KDA
+									</div>
+									<div className="drop-down-team-adr drop-down-player-section">
+										ADR
+									</div>
+									<div className="drop-down-team-hs-percent drop-down-player-section">
+										HS%
+									</div>
+									<div className="drop-down-team-econ drop-down-player-section">
+										ECON
+									</div>
+								</div>
+							</div>
 							{teams.blueTeam.map((player, index) => (
 								<DropDownTeamPlayer player={player} index={index} />
 							))}
 						</div>
 						<div className="drop-down-team-b drop-down-team">
-							<div className="drop-down-team-header team-red">TEAM RED</div>
+							<div className="drop-down-team-header team-red">
+								TEAM RED
+								<div className="team-player-stats-container-header">
+									<div className="drop-down-team-player-rank-container">
+										<div className="drop-down-team-player-rank">RANK</div>
+									</div>
+									<div className="drop-down-team-acs drop-down-player-section">
+										ACS
+									</div>
+									<div className="drop-down-team-kills drop-down-player-section">
+										K
+									</div>
+									<div className="drop-down-team-deaths drop-down-player-section">
+										D
+									</div>
+									<div className="drop-down-team-assists drop-down-player-section">
+										A
+									</div>
+									<div className="drop-down-team-kd drop-down-player-section">
+										KDA
+									</div>
+									<div className="drop-down-team-adr drop-down-player-section">
+										ADR
+									</div>
+									<div className="drop-down-team-hs-percent drop-down-player-section">
+										HS%
+									</div>
+									<div className="drop-down-team-econ drop-down-player-section">
+										ECON
+									</div>
+								</div>
+							</div>
 							<div className="drop-down-team-a drop-down-team">
 								{teams.redTeam.map((player, index) => (
 									<DropDownTeamPlayer player={player} index={index} />
