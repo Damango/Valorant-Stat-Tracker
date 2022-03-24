@@ -6,6 +6,25 @@
 	grid-template-rows: 65px auto;
 }
 
+.nav-bar-container {
+	position: relative;
+	border-bottom: 1px solid rgb(201, 201, 201);
+}
+
+.user-search-container {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	display: inline-block;
+}
+
+.user-search-container input {
+	padding: 10px;
+	border: 1px solid black;
+}
+
 .main-view-container {
 	background-color: rgb(245, 245, 245);
 	overflow-x: hidden;
@@ -352,7 +371,7 @@
 
 	.current-rank-image {
 		position: relative;
-		width: 80px;
+		width: 60px;
 		height: 50px;
 		background: url("./media/immortalicon.png");
 		background-position: center center;

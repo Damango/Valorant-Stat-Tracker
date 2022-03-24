@@ -45,13 +45,19 @@ let weapons = [
 ];
 
 let ranks = ["Gold", "Platinum", "Diamond", "Immortal", "Radiant"];
-function generateRandomPlayer(team) {
+function generateRandomPlayer(team, agentAvoid) {
+	var agentList = [...agents];
+
+	if (agentAvoid) {
+		agentList.splice(agentList.indexOf(agentAvoid), 1);
+	}
+
 	let playerObject = {
 		playerID: names[Math.floor(Math.random() * names.length)],
 		tagLine: "zyzz",
 		teamID: team,
-		partyID: "test",
-		agent: agents[Math.floor(Math.random() * agents.length)],
+		partyID: "",
+		agent: agentList[Math.floor(Math.random() * agentList.length)],
 		compRank: ranks[Math.floor(Math.random() * (ranks.length - 1))],
 		playerLevel: Math.floor(Math.random() * 400) + 100,
 		stats: [],
@@ -83,20 +89,21 @@ function generatePlayerStats() {
 	return playerStatsObject;
 }
 
-function generateRoundResults(roundIndex) {
+function generateRoundResults(roundIndex, playerName) {
 	let playersStats = [];
 	let j;
 	for (j = 0; j < 9; j++) {
 		playersStats.push(generatePlayerStats());
 	}
+	console.log(playerName);
 	playersStats.push({
-		playerID: "Busters#zyzz",
+		playerID: playerName,
 		kills: Math.floor(Math.random() * 3),
 		damage: Math.floor(Math.random() * 500),
 		assists: Math.floor(Math.random() * 1.2),
 		score: Math.floor(Math.random() * 1500),
 		died: Math.random() < 0.5,
-		damage: [],
+
 		economy: {
 			loadoutValue: 800,
 			weapon: "Vandal",
@@ -121,15 +128,16 @@ function generateRoundResults(roundIndex) {
 
 	return roundResultObject;
 }
-function generateMatch() {
+function generateMatch(name, tagLine) {
 	let i, j;
 	let players = [];
 	let roundResults = [];
 	let blueWins = 0;
 	let redWins = 0;
+	let userName = name + "#" + tagLine;
 
 	for (j = 0; j < 26; j++) {
-		let roundResult = generateRoundResults(j + 1);
+		let roundResult = generateRoundResults(j + 1, userName);
 
 		if (redWins === 13 || blueWins === 13) {
 			break;
@@ -139,7 +147,7 @@ function generateMatch() {
 			} else {
 				redWins += 1;
 			}
-			console.log(roundResult);
+
 			roundResults.push(roundResult);
 		}
 	}
@@ -149,16 +157,26 @@ function generateMatch() {
 
 		if (i > 4) {
 			player = generateRandomPlayer("blue");
+			for (j = 0; j < players.length; j++) {
+				if (player.agent === players[j].agent) {
+					player = generateRandomPlayer("blue", player.agent);
+				}
+			}
 		} else {
 			player = generateRandomPlayer("red");
+			for (j = 0; j < players.length; j++) {
+				if (player.agent === players[j].agent) {
+					player = generateRandomPlayer("red", player.agent);
+				}
+			}
 		}
 
 		players.push(player);
 	}
 
 	players.push({
-		playerID: "Busters",
-		tagLine: "zyzz",
+		playerID: name,
+		tagLine: tagLine,
 		teamID: "blue",
 		partyID: "test",
 		agent: agents[Math.floor(Math.random() * agents.length)],

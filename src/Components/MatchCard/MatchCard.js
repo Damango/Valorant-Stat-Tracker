@@ -45,7 +45,7 @@ const MatchCard = (props) => {
 		//setPlayerObject(calculatePlayerStats());
 
 		setTeams(sortAndCalculateTeamStats());
-	}, []);
+	}, [props.matchData]);
 	const econData = props.matchData.roundResults.map((match) => {
 		let chartDataObject = {
 			name: "Round: " + match.roundNum,
@@ -157,7 +157,6 @@ const MatchCard = (props) => {
 			players[i].stats.hs = Math.floor(Math.random() * 35) + 8;
 			players[i].stats.econ = Math.floor(Math.random() * 85) + 60;
 
-			console.log(players[i]);
 			if (
 				players[i].playerID + "#" + players[i].tagLine ===
 				props.currentPlayer
@@ -256,6 +255,7 @@ const MatchCard = (props) => {
 			return (
 				<div className="match-card-drop-down-container" ref={dropDownRef}>
 					<div className="drop-down-chart-container">
+						<div className="chart-header-text">PLAYER ECONOMY</div>
 						<ResponsiveContainer width="100%" height={250}>
 							<LineChart
 								data={econData}
@@ -275,7 +275,7 @@ const MatchCard = (props) => {
 								<div className="team-side">TEAM BLUE</div>
 
 								<div className="team-player-stats-container-header">
-									<div className="drop-down-team-player-rank-container">
+									<div className="drop-down-team-player-rank-text-container">
 										<div className="drop-down-team-player-rank">RANK</div>
 									</div>
 									<div className="drop-down-team-acs drop-down-player-section">
@@ -312,7 +312,7 @@ const MatchCard = (props) => {
 							<div className="drop-down-team-header team-red">
 								<div className="team-side">TEAM RED</div>
 								<div className="team-player-stats-container-header">
-									<div className="drop-down-team-player-rank-container">
+									<div className="drop-down-team-player-rank-text-container">
 										<div className="drop-down-team-player-rank">RANK</div>
 									</div>
 									<div className="drop-down-team-acs drop-down-player-section">

@@ -12,7 +12,7 @@ import generateMatches from "./GenerateMatchData/GenerateMatches";
 import AgentImage from "./Components/AgentImage/AgentImage";
 
 const ValorantTracker = (props) => {
-	const [currentPlayer, setCurrentPlayer] = useState("Busters#zyzz");
+	const [currentPlayer, setCurrentPlayer] = useState("mambu#iwnl");
 	const [viewState, setViewState] = useState("tracker");
 	const [matchData, setMatchData] = useState(undefined);
 
@@ -26,16 +26,10 @@ const ValorantTracker = (props) => {
 	});
 
 	useEffect(() => {
-		let i;
-		let matchArray = [];
 		animateRankDetails();
 
 		animateFavoriteAgent();
-
-		for (i = 0; i < 20; i++) {
-			matchArray.push(generateMatches());
-		}
-		setMatchData(matchArray);
+		matchGeneration();
 	}, []);
 
 	useEffect(() => {
@@ -44,6 +38,59 @@ const ValorantTracker = (props) => {
 			animateNumbers(1000);
 		}
 	}, [matchData]);
+
+	function submitUser() {
+		let inputElement = document.querySelector(".username-input");
+		let inputValue = inputElement.value;
+		let i;
+		let tagBoolean = false;
+		for (i = 0; i < inputValue.length; i++) {
+			if (inputValue[i] === "#") {
+				tagBoolean = true;
+			}
+		}
+
+		if (tagBoolean) {
+			matchGeneration(inputValue);
+		}
+	}
+
+	function matchGeneration(username) {
+		let i;
+		let matchArray = [];
+
+		for (i = 0; i < 20; i++) {
+			if (username) {
+				let fullUserName = userNameSplicer(username);
+				setCurrentPlayer(username);
+				let name = fullUserName.name;
+				let tagLine = fullUserName.tagLine;
+				matchArray.push(generateMatches(name, tagLine));
+			} else {
+				let fullUserName = userNameSplicer(currentPlayer);
+				let name = fullUserName.name;
+				let tagLine = fullUserName.tagLine;
+				matchArray.push(generateMatches(name, tagLine));
+			}
+		}
+		setMatchData(matchArray);
+	}
+
+	function userNameSplicer(fullAccountName) {
+		let theString = fullAccountName;
+		let i;
+
+		let name;
+		let tagLine;
+		for (i = 0; i < theString.length; i++) {
+			if (theString[i] === "#") {
+				tagLine = theString.slice(i + 1);
+				name = theString.slice(0, i);
+			}
+		}
+
+		return { name: name, tagLine: tagLine };
+	}
 
 	function calculateHistorySummary() {
 		let summaryObject = {};
@@ -63,9 +110,12 @@ const ValorantTracker = (props) => {
 
 	function getCurrentPlayerStats() {
 		let i;
+
 		//Change the match data index to check all matches later
 		for (i = 0; i < matchData[0].players.length; i++) {
-			if (matchData[0].players[i].playerID === "Busters") {
+			let playerID = matchData[0].players[i].playerID;
+			let tagLine = matchData[0].players[i].tagLine;
+			if (playerID + "#" + tagLine === currentPlayer) {
 				return matchData[0].players[i];
 			}
 		}
@@ -211,13 +261,16 @@ const ValorantTracker = (props) => {
 	return (
 		<div className="valorant-tracker-container">
 			<div className="nav-bar-container">
-				<button
-					onClick={() => {
-						console.log(getCurrentPlayerStats());
-					}}
-				>
-					CLICK
-				</button>
+				<div className="user-search-container">
+					<input className="username-input" placeholder="PlayerName#Tagline" />
+					<button
+						onClick={() => {
+							submitUser();
+						}}
+					>
+						CLICK
+					</button>
+				</div>
 			</div>
 
 			<div className="main-view-container">
@@ -229,7 +282,7 @@ const ValorantTracker = (props) => {
 								<div className="profile-icon-container">
 									<div className="profile-level-container">0</div>
 								</div>
-								<div className="profile-name-container">BUSTERS#Zyzz</div>
+								<div className="profile-name-container">{currentPlayer}</div>
 							</div>
 							<div className="account-ranks-container">
 								<div className="account-current-rank-container">

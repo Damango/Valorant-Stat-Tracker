@@ -55,7 +55,13 @@ const GenerateMatchData = (props) => {
 		"Marshall",
 		"Odin",
 	];
-	function generateRandomPlayer() {
+	function generateRandomPlayer(agentAvoid) {
+		//	let agent = agents[Math.floor(Math.random() * agents.length)];
+		let agentList = agents;
+
+		if (agentAvoid) {
+			agents.splice(agents.indexOf(agentAvoid), 1);
+		}
 		let playerObject = {
 			playerID: names[Math.floor(Math.random() * names.length)],
 			tagLine: "zyzz",
@@ -139,7 +145,15 @@ const GenerateMatchData = (props) => {
 		}
 
 		for (i = 0; i < 9; i++) {
-			players.push(generateRandomPlayer());
+			let playerStat = generateRandomPlayer();
+
+			for (j = 0; j < players.length; j++) {
+				if (players[j].agent === playerStat.agent) {
+					playerStat = generateRandomPlayer(playerStat.agent);
+				}
+			}
+
+			if (playerStat.agent) players.push(generateRandomPlayer());
 		}
 
 		players.push({

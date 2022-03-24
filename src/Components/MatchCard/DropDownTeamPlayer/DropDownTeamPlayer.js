@@ -19,9 +19,8 @@ const DropDownTeamPlayer = (props) => {
 	useEffect(() => {
 		let theID = playerID;
 		if (theID.length > 10) {
-			console.log(playerID);
 			theID = theID.substring(0, 10);
-			console.log(playerID);
+
 			theID += "...";
 			setPlayerID(theID);
 		}
@@ -74,7 +73,6 @@ const DropDownTeamPlayer = (props) => {
 				</div>
 				<div className="drop-down-team-assists drop-down-player-section">
 					{props.player.stats.assists}
-					{console.log(props.player.stats)}
 				</div>
 				<div className="drop-down-team-kd drop-down-player-section">
 					{props.player.stats.KDA}
