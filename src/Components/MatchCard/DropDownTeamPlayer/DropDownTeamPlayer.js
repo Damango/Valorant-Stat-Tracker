@@ -1,25 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./DropDownTeamPlayer.css";
-import SovaIcon from "../../../media/sovaicon.webp";
-import JettIcon from "../../../media/jetticon.webp";
-import SageIcon from "../../../media/sageicon.webp";
-import BreachIcon from "../../../media/breachicon.webp";
-import AstraIcon from "../../../media/astraicon.webp";
-import CypherIcon from "../../../media/cyphericon.webp";
-import PhoenixIcon from "../../../media/phoenixicon.webp";
-import ViperIcon from "../../../media/vipericon.webp";
-import NeonIcon from "../../../media/neonicon.png";
-import ReynaIcon from "../../../media/reynaicon.png";
-import YoruIcon from "../../../media/yoruicon.png";
-import BrimstoneIcon from "../../../media/brimstoneicon.webp";
-import OmenIcon from "../../../media/omenicon.webp";
-import KayoIcon from "../../../media/kayoicon.webp";
-import ChamberIcon from "../../../media/chambericon.png";
-import KilljoyIcon from "../../../media/killjoyicon.webp";
-import SkyeIcon from "../../../media/skyeicon.webp";
-import RazeIcon from "../../../media/razeicon.webp";
 
 import AgentImage from "../../AgentImage/AgentImage";
+
+import immortalIcon from "../../../media/immortalicon.png";
+
+import radiantIcon from "../../../media/raidanticon.png";
+
+import platIcon from "../../../media/platicon.png";
+
+import diamondIcon from "../../../media/diamondicon.png";
+
+import goldIcon from "../../../media/goldicon.png";
 
 const DropDownTeamPlayer = (props) => {
 	const [playerID, setPlayerID] = useState(props.player.playerID);
@@ -34,6 +26,20 @@ const DropDownTeamPlayer = (props) => {
 			setPlayerID(theID);
 		}
 	}, []);
+
+	function renderRankImage() {
+		if (props.player.compRank.toLowerCase() === "gold") {
+			return goldIcon;
+		} else if (props.player.compRank.toLowerCase() === "platinum") {
+			return platIcon;
+		} else if (props.player.compRank.toLowerCase() === "immortal") {
+			return immortalIcon;
+		} else if (props.player.compRank.toLowerCase() === "diamond") {
+			return platIcon;
+		} else if (props.player.compRank.toLowerCase() === "radiant") {
+			return radiantIcon;
+		}
+	}
 
 	return (
 		<div className="drop-down-player-container">
@@ -53,8 +59,13 @@ const DropDownTeamPlayer = (props) => {
 			</div>
 
 			<div className="team-player-stats-container">
-				<div className="drop-down-team-player-rank-container">PLAT</div>
-				<div className="drop-down-team-acs drop-down-player-section">300</div>
+				<div
+					className="drop-down-team-player-rank-container"
+					style={{ backgroundImage: `url(${renderRankImage()})` }}
+				></div>
+				<div className="drop-down-team-acs drop-down-player-section">
+					{props.player.stats.acs}
+				</div>
 				<div className="drop-down-team-kills drop-down-player-section">
 					{props.player.stats.kills}
 				</div>
@@ -63,6 +74,7 @@ const DropDownTeamPlayer = (props) => {
 				</div>
 				<div className="drop-down-team-assists drop-down-player-section">
 					{props.player.stats.assists}
+					{console.log(props.player.stats)}
 				</div>
 				<div className="drop-down-team-kd drop-down-player-section">
 					{props.player.stats.KDA}
@@ -71,9 +83,11 @@ const DropDownTeamPlayer = (props) => {
 					{props.player.stats.adr}
 				</div>
 				<div className="drop-down-team-hs-percent drop-down-player-section">
-					25%
+					{props.player.stats.hs}%
 				</div>
-				<div className="drop-down-team-econ drop-down-player-section">98</div>
+				<div className="drop-down-team-econ drop-down-player-section">
+					{props.player.stats.econ}
+				</div>
 			</div>
 		</div>
 	);

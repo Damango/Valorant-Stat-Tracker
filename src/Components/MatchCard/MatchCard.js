@@ -35,12 +35,14 @@ const MatchCard = (props) => {
 		assists: 0,
 		KDRatio: 0,
 		adr: 0,
+		hs: 0,
+		acs: 0,
 	});
 
 	useEffect(() => {
 		animateLines();
 
-		setPlayerObject(calculatePlayerStats());
+		//setPlayerObject(calculatePlayerStats());
 
 		setTeams(sortAndCalculateTeamStats());
 	}, []);
@@ -88,45 +90,6 @@ const MatchCard = (props) => {
 		};
 	}
 
-	function calculatePlayerStats() {
-		let i, j;
-		let roundResults = props.matchData.roundResults;
-
-		let kills = 0;
-		let deaths = 0;
-		let assists = Math.floor(Math.random() * 9);
-		let KDRatio = 0;
-
-		for (i = 0; i < roundResults.length; i++) {
-			for (j = 0; j < roundResults[i].playerStats.length; j++) {
-				if (roundResults[i].playerStats[j].playerID === props.currentPlayer) {
-					kills += roundResults[i].playerStats[j].kills;
-					if (roundResults[i].playerStats[j].died) {
-						deaths += 1;
-					}
-				}
-			}
-		}
-
-		let adr = Math.floor(
-			((Math.random() * 50 + 80) * Math.round((kills / deaths) * 100)) / 100
-		);
-
-		if (deaths === 0) {
-			KDRatio = Math.round(kills);
-		} else {
-			KDRatio = Math.round((kills / deaths) * 100) / 100;
-		}
-
-		return {
-			kills: kills,
-			deaths: deaths,
-			assists: assists,
-			KDRatio: KDRatio,
-			adr: adr,
-		};
-	}
-
 	function sortAndCalculateTeamStats() {
 		let players = props.matchData.players;
 		let i;
@@ -145,6 +108,7 @@ const MatchCard = (props) => {
 					) {
 						if (players[i].stats.kills === undefined) {
 							players[i].stats.kills = roundResults[j].playerStats[k].kills;
+							players[i].stats.assists = roundResults[j].playerStats[k].assists;
 							players[i].stats.adr = Math.floor(
 								((Math.random() * 50 + 80) *
 									Math.round(
@@ -153,13 +117,15 @@ const MatchCard = (props) => {
 									100
 							);
 							players[i].stats.deaths = 0;
-							players[i].stats.assists = Math.floor(Math.random() * 100);
+
 							players[i].stats.KDA =
 								Math.round(
 									(players[i].stats.kills / players[i].stats.deaths) * 100
 								) / 100;
 						} else {
 							players[i].stats.kills += roundResults[j].playerStats[k].kills;
+							players[i].stats.assists +=
+								roundResults[j].playerStats[k].assists;
 							players[i].stats.adr = Math.floor(
 								((Math.random() * 50 + 80) *
 									Math.round(
@@ -173,11 +139,30 @@ const MatchCard = (props) => {
 
 							players[i].stats.KDA =
 								Math.round(
-									(players[i].stats.kills / players[i].stats.deaths) * 100
+									((players[i].stats.kills + players[i].stats.assists) /
+										players[i].stats.deaths) *
+										100
 								) / 100;
 						}
 					}
 				}
+			}
+
+			players[i].stats.acs =
+				Math.floor(
+					Math.random() *
+						(players[i].stats.kills + players[i].stats.assists * 5)
+				) + 200;
+
+			players[i].stats.hs = Math.floor(Math.random() * 35) + 8;
+			players[i].stats.econ = Math.floor(Math.random() * 85) + 60;
+
+			console.log(players[i]);
+			if (
+				players[i].playerID + "#" + players[i].tagLine ===
+				props.currentPlayer
+			) {
+				setPlayerObject(players[i].stats);
 			}
 		}
 
@@ -452,11 +437,11 @@ const MatchCard = (props) => {
 					</div>
 					<div className="match-player-kd player-section-container">
 						<div>K/D</div>
-						<div>{playerObject.KDRatio}</div>
+						<div>{playerObject.KDA}</div>
 					</div>
 					<div className="match-player-hs-percent player-section-container">
 						<div>HS%</div>
-						<div>25%</div>
+						<div>{playerObject.hs}</div>
 					</div>
 					<div className="match-player-adr player-section-container">
 						<div>ADR</div>
@@ -464,7 +449,7 @@ const MatchCard = (props) => {
 					</div>
 					<div className="match-player-acs player-section-container">
 						<div>ACS</div>
-						<div>238</div>
+						<div>{playerObject.acs}</div>
 					</div>
 				</div>
 			</div>

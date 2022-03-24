@@ -43,6 +43,8 @@ let weapons = [
 	"Marshall",
 	"Odin",
 ];
+
+let ranks = ["Gold", "Platinum", "Diamond", "Immortal", "Radiant"];
 function generateRandomPlayer(team) {
 	let playerObject = {
 		playerID: names[Math.floor(Math.random() * names.length)],
@@ -50,7 +52,7 @@ function generateRandomPlayer(team) {
 		teamID: team,
 		partyID: "test",
 		agent: agents[Math.floor(Math.random() * agents.length)],
-		compRank: "Immortal II",
+		compRank: ranks[Math.floor(Math.random() * (ranks.length - 1))],
 		playerLevel: Math.floor(Math.random() * 400) + 100,
 		stats: [],
 	};
@@ -63,6 +65,7 @@ function generatePlayerStats() {
 		playerID: names[Math.floor(Math.random() * names.length)] + "#zyzz",
 		kills: Math.floor(Math.random() * 2.5),
 		damage: Math.floor(Math.random() * 500),
+		assists: Math.floor(Math.random() * 1.2),
 		score: Math.floor(Math.random() * 1500),
 		died: Math.random() < 0.5,
 		economy: {
@@ -90,6 +93,7 @@ function generateRoundResults(roundIndex) {
 		playerID: "Busters#zyzz",
 		kills: Math.floor(Math.random() * 3),
 		damage: Math.floor(Math.random() * 500),
+		assists: Math.floor(Math.random() * 1.2),
 		score: Math.floor(Math.random() * 1500),
 		died: Math.random() < 0.5,
 		damage: [],
@@ -158,7 +162,7 @@ function generateMatch() {
 		teamID: "blue",
 		partyID: "test",
 		agent: agents[Math.floor(Math.random() * agents.length)],
-		compRank: "Immortal II",
+		compRank: "Immortal",
 		playerLevel: Math.floor(Math.random() * 400) + 100,
 		stats: [],
 	});

@@ -53,6 +53,12 @@
 	background-size: cover;
 }
 
+.drop-down-team-player-rank-container {
+	background-size: cover;
+	background-position: absolute;
+	height: 100%;
+}
+
 .team-player-stats-container {
 	position: relative;
 
@@ -92,17 +98,17 @@
 	width: 30px;
 }
 
+@media only screen and (max-width: 1280px) {
+	.drop-down-player-container {
+		width: 1000px;
+	}
+}
+
 @media only screen and (max-width: 760px) {
 	.drop-down-player-agent-name-container {
 		position: relative;
 		width: 240px;
 		display: flex;
 		align-items: center;
-	}
-}
-
-@media only screen and (max-width: 600px) {
-	.drop-down-player-container {
-		width: 1000px;
 	}
 }
