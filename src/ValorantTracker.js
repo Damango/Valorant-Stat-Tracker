@@ -59,7 +59,7 @@ const ValorantTracker = (props) => {
 		let i;
 		let matchArray = [];
 
-		for (i = 0; i < 20; i++) {
+		for (i = 0; i < 25; i++) {
 			if (username) {
 				let fullUserName = userNameSplicer(username);
 				setCurrentPlayer(username);
@@ -186,30 +186,92 @@ const ValorantTracker = (props) => {
 		if (agentMap.size === 1) {
 			mostPlayedAgent = agentIterator.next().value;
 		} else {
-			for (let i = 0; i < agentMap.size - 1; i++) {
+			for (let i = 0; i < agentMap.size; i++) {
 				let currentAgent = agentIterator.next().value;
+				console.log(currentAgent[1]);
+				if (mostPlayedAgent === undefined) {
+					mostPlayedAgent = currentAgent;
+				}
 
-				if (!mostPlayedAgent) {
+				if (currentAgent[1] > mostPlayedAgent[1]) {
+					secondMostPlayedAgent = mostPlayedAgent;
+					mostPlayedAgent = currentAgent;
+				} else if (currentAgent[1] === mostPlayedAgent[1]) {
+					secondMostPlayedAgent = currentAgent;
+				} else if (currentAgent[1] < mostPlayedAgent[1]) {
+					if (currentAgent[1] > secondMostPlayedAgent[1]) {
+						secondMostPlayedAgent = currentAgent;
+					}
+					if (secondMostPlayedAgent[0] === mostPlayedAgent[0]) {
+						secondMostPlayedAgent = currentAgent;
+					}
+				}
+
+				console.log("CURRENT:" + currentAgent);
+
+				/*				
+				if (mostPlayedAgent === undefined) {
 					mostPlayedAgent = currentAgent;
 				} else {
-					if (
-						mostPlayedAgent[1] < currentAgent[1] ||
-						mostPlayedAgent[1] === currentAgent[1]
-					) {
+					if (mostPlayedAgent[1] <= currentAgent[1]) {
 						secondMostPlayedAgent = mostPlayedAgent;
 						mostPlayedAgent = currentAgent;
 					}
+					if (secondMostPlayedAgent) {
+						if (
+							secondMostPlayedAgent[1] < currentAgent &&
+							currentAgent[1] < mostPlayedAgent
+						) {
+							secondMostPlayedAgent = currentAgent;
+						}
+					}
 				}
+*/
 			}
+			console.log("MOST PLAYED: " + mostPlayedAgent);
+			console.log("2nd MOST PLAYED: " + secondMostPlayedAgent);
 		}
 
 		if (!secondMostPlayedAgent) {
-			secondMostPlayedAgent = ["...", 0];
+			secondMostPlayedAgent = ["Sova", 1000];
 		}
+		if (!mostPlayedAgent) {
+			mostPlayedAgent = ["Chamber", 20000];
+		}
+
+		//console.log(agentMap);
+
+		calculateFavAgentWinRate(mostPlayedAgent);
+
+		mostPlayedAgent.push(calculateFavAgentWinRate(mostPlayedAgent));
+		secondMostPlayedAgent.push(calculateFavAgentWinRate(secondMostPlayedAgent));
 		return {
 			mostPlayedAgent: mostPlayedAgent,
 			secondMostPlayedAgent: secondMostPlayedAgent,
 		};
+	}
+
+	function calculateFavAgentWinRate(mostPlayedAgent) {
+		let i;
+		let agentMatches = mostPlayedAgent[1];
+		let matchesWon = 0;
+		let winRate;
+
+		for (i = 0; i < matchData.length; i++) {
+			let playerIndex = matchData[i].players.findIndex(
+				(player) => player.playerID + "#" + player.tagLine === currentPlayer
+			);
+			if (matchData[i].players[playerIndex].agent === mostPlayedAgent[0]) {
+				if (matchData[i].matchInfo.winningTeam === "blue") {
+					matchesWon++;
+				}
+			}
+		}
+
+		winRate = matchesWon / agentMatches;
+		winRate = Math.floor(winRate * 1000) / 10;
+
+		return winRate;
 	}
 
 	function renderViewState() {
@@ -270,6 +332,14 @@ const ValorantTracker = (props) => {
 					>
 						CLICK
 					</button>
+
+					<button
+						onClick={() => {
+							calculateFavAgentWinRate();
+						}}
+					>
+						AGENTS
+					</button>
 				</div>
 			</div>
 
@@ -324,7 +394,9 @@ const ValorantTracker = (props) => {
 										{historySummary.mostPlayedAgent[1]} Matches
 									</div>
 								</div>
-								<div className="fav-agent-win-rate">89% WR</div>
+								<div className="fav-agent-win-rate">
+									{historySummary.mostPlayedAgent[2]}% WR
+								</div>
 							</div>
 							<div className="favorite-agent-container fav-agent-1">
 								<div
@@ -341,7 +413,9 @@ const ValorantTracker = (props) => {
 										{historySummary.secondMostPlayedAgent[1]} Matches
 									</div>
 								</div>
-								<div className="fav-agent-win-rate">89% WR</div>
+								<div className="fav-agent-win-rate">
+									{historySummary.secondMostPlayedAgent[2]}% WR
+								</div>
 							</div>
 						</div>
 					</div>
@@ -364,7 +438,7 @@ const ValorantTracker = (props) => {
 								<div className="match-history-summary-win-loss-container">
 									<div className="win-loss-ratio-text-container">
 										<div className="win-loss-ratio-count">
-											{historySummary.wins} / {historySummary.losses}
+											{historySummary.wins}W / {historySummary.losses}L
 										</div>
 										<div className="win-loss-ratio-percentage">
 											{historySummary.winRatio}%
@@ -385,6 +459,7 @@ const ValorantTracker = (props) => {
 												matchData={match}
 												index={index}
 												currentPlayer={currentPlayer}
+												key={"match-card-" + index}
 											/>
 									  ))
 									: "nothing"}

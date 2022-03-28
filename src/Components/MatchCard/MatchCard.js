@@ -39,13 +39,16 @@ const MatchCard = (props) => {
 		acs: 0,
 	});
 
+	const [dropDown, setDropDown] = useState(false);
+
 	useEffect(() => {
 		animateLines();
 
-		//setPlayerObject(calculatePlayerStats());
+		setDropDown(false);
 
 		setTeams(sortAndCalculateTeamStats());
 	}, [props.matchData]);
+
 	const econData = props.matchData.roundResults.map((match) => {
 		let chartDataObject = {
 			name: "Round: " + match.roundNum,
@@ -53,8 +56,6 @@ const MatchCard = (props) => {
 		};
 		return chartDataObject;
 	});
-
-	const [dropDown, setDropDown] = useState(false);
 
 	function calculateMatchResult() {
 		let i, j;
@@ -220,7 +221,7 @@ const MatchCard = (props) => {
 		let dropDownElement = dropDownRef.current;
 		//Check if changing classes dynamically will allow for smooth animations with percentages
 		if (dropDown) {
-			dropDownElement.style.height = "1150px";
+			dropDownElement.style.height = "1165px";
 		} else {
 			dropDownElement.style.height = "0px";
 		}
@@ -305,7 +306,12 @@ const MatchCard = (props) => {
 								</div>
 							</div>
 							{teams.blueTeam.map((player, index) => (
-								<DropDownTeamPlayer player={player} index={index} />
+								<DropDownTeamPlayer
+									player={player}
+									index={index}
+									currentPlayer={props.currentPlayer}
+									key={player.playerID + "-" + index}
+								/>
 							))}
 						</div>
 						<div className="drop-down-team-b drop-down-team-container">
@@ -343,7 +349,11 @@ const MatchCard = (props) => {
 							</div>
 							<div className="drop-down-team-a drop-down-team">
 								{teams.redTeam.map((player, index) => (
-									<DropDownTeamPlayer player={player} index={index} />
+									<DropDownTeamPlayer
+										player={player}
+										index={index}
+										key={player.playerID + "-" + index}
+									/>
 								))}
 							</div>
 						</div>

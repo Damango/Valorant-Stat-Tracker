@@ -29,6 +29,43 @@ let names = [
 	"Evil DonnieTmain",
 	"Foster",
 	"Evil Foster",
+	"TheSquid",
+	"InterestFedor",
+	"Tall Prune",
+	"Sturdy Bertha",
+	"Pop of Tarts",
+	"Will Smith",
+	"Chris Rock",
+	"Will Smacks Chris?",
+	"Dr Pibb",
+	"Bepis",
+	"Canned Bread",
+	"Silicon",
+	"Asuna",
+	"Baybyay",
+	"Hiko",
+	"Steel",
+	"theguard",
+	"Potentail",
+	"Forest",
+	"Ninja",
+	"Dr Disrespect",
+	"Dr Lupo",
+	"JCStani",
+];
+
+let tagLines = [
+	"zyzz",
+	"steel",
+	"iwnl",
+	"asdf",
+	"temper",
+	"hero",
+	"NA1",
+	"KDA",
+	"flamed",
+	"fight",
+	"zip",
 ];
 
 let weapons = [
@@ -54,7 +91,7 @@ function generateRandomPlayer(team, agentAvoid) {
 
 	let playerObject = {
 		playerID: names[Math.floor(Math.random() * names.length)],
-		tagLine: "zyzz",
+		tagLine: "NA1",
 		teamID: team,
 		partyID: "",
 		agent: agentList[Math.floor(Math.random() * agentList.length)],
@@ -68,7 +105,7 @@ function generateRandomPlayer(team, agentAvoid) {
 
 function generatePlayerStats() {
 	let playerStatsObject = {
-		playerID: names[Math.floor(Math.random() * names.length)] + "#zyzz",
+		playerID: names[Math.floor(Math.random() * names.length)] + "#NA1",
 		kills: Math.floor(Math.random() * 2.5),
 		damage: Math.floor(Math.random() * 500),
 		assists: Math.floor(Math.random() * 1.2),
@@ -95,7 +132,6 @@ function generateRoundResults(roundIndex, playerName) {
 	for (j = 0; j < 9; j++) {
 		playersStats.push(generatePlayerStats());
 	}
-	console.log(playerName);
 	playersStats.push({
 		playerID: playerName,
 		kills: Math.floor(Math.random() * 3),
@@ -190,8 +226,9 @@ function generateMatch(name, tagLine) {
 			matchID: Math.floor(Math.random() * 2000),
 			mapID: maps[Math.floor(Math.random() * maps.length)],
 			gameLength:
-				Math.floor(Math.random() * 45) +
-				15 +
+				roundResults.length +
+				Math.floor(Math.random() * 5) +
+				8 +
 				"m" +
 				Math.floor(Math.random() * 60) +
 				"s",
@@ -206,14 +243,6 @@ function generateMatch(name, tagLine) {
 	//console.log(matchObject);
 
 	return matchObject;
-}
-
-function generatePlayerHistory() {}
-
-function addMatch() {
-	//let matchHistory = props.matchData;
-	//matchHistory.push(generateMatch());
-	//.setMatchData(matchHistory);
 }
 
 export default generateMatch;
