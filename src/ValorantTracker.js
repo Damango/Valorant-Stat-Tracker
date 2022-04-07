@@ -11,6 +11,10 @@ import generateMatches from "./GenerateMatchData/GenerateMatches";
 //Agent Image Handler
 import AgentImage from "./Components/AgentImage/AgentImage";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 const ValorantTracker = (props) => {
 	const [currentPlayer, setCurrentPlayer] = useState("mambu#iwnl");
 	const [viewState, setViewState] = useState("tracker");
@@ -51,6 +55,9 @@ const ValorantTracker = (props) => {
 		}
 
 		if (tagBoolean) {
+			matchGeneration(inputValue);
+		} else {
+			inputValue += "#iwnl";
 			matchGeneration(inputValue);
 		}
 	}
@@ -208,25 +215,6 @@ const ValorantTracker = (props) => {
 				}
 
 				console.log("CURRENT:" + currentAgent);
-
-				/*				
-				if (mostPlayedAgent === undefined) {
-					mostPlayedAgent = currentAgent;
-				} else {
-					if (mostPlayedAgent[1] <= currentAgent[1]) {
-						secondMostPlayedAgent = mostPlayedAgent;
-						mostPlayedAgent = currentAgent;
-					}
-					if (secondMostPlayedAgent) {
-						if (
-							secondMostPlayedAgent[1] < currentAgent &&
-							currentAgent[1] < mostPlayedAgent
-						) {
-							secondMostPlayedAgent = currentAgent;
-						}
-					}
-				}
-*/
 			}
 			console.log("MOST PLAYED: " + mostPlayedAgent);
 			console.log("2nd MOST PLAYED: " + secondMostPlayedAgent);
@@ -238,8 +226,6 @@ const ValorantTracker = (props) => {
 		if (!mostPlayedAgent) {
 			mostPlayedAgent = ["Chamber", 20000];
 		}
-
-		//console.log(agentMap);
 
 		calculateFavAgentWinRate(mostPlayedAgent);
 
@@ -326,19 +312,12 @@ const ValorantTracker = (props) => {
 				<div className="user-search-container">
 					<input className="username-input" placeholder="PlayerName#Tagline" />
 					<button
+						className="search-button"
 						onClick={() => {
 							submitUser();
 						}}
 					>
-						CLICK
-					</button>
-
-					<button
-						onClick={() => {
-							calculateFavAgentWinRate();
-						}}
-					>
-						AGENTS
+						<FontAwesomeIcon icon={faMagnifyingGlass} />
 					</button>
 				</div>
 			</div>

@@ -110,6 +110,7 @@ const MatchCard = (props) => {
 						if (players[i].stats.kills === undefined) {
 							players[i].stats.kills = roundResults[j].playerStats[k].kills;
 							players[i].stats.assists = roundResults[j].playerStats[k].assists;
+
 							players[i].stats.adr = Math.floor(
 								((Math.random() * 50 + 80) *
 									Math.round(
@@ -117,7 +118,7 @@ const MatchCard = (props) => {
 									)) /
 									100
 							);
-							players[i].stats.deaths = 0;
+							players[i].stats.deaths = 1;
 
 							players[i].stats.KDA =
 								Math.round(

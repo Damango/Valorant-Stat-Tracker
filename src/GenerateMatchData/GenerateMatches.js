@@ -106,9 +106,9 @@ function generateRandomPlayer(team, agentAvoid) {
 function generatePlayerStats() {
 	let playerStatsObject = {
 		playerID: names[Math.floor(Math.random() * names.length)] + "#NA1",
-		kills: Math.floor(Math.random() * 2.5),
+		kills: Math.floor(Math.random() * 3.1) + 1,
 		damage: Math.floor(Math.random() * 500),
-		assists: Math.floor(Math.random() * 1.2),
+		assists: Math.floor(Math.random() * 1.2) + 1,
 		score: Math.floor(Math.random() * 1500),
 		died: Math.random() < 0.5,
 		economy: {
